@@ -10,7 +10,6 @@ namespace AITResearchSystem.Data.Models
     {
         //Primary key
         [Key]
-        [Column(TypeName = "integer(10)")]
         public int Id { get; set; }
 
         // Fields

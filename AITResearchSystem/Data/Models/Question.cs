@@ -9,14 +9,12 @@ namespace AITResearchSystem.Data.Models
     {
         // Primary Key
         [Key]
-        [Column(TypeName = "integer(10)")]
         public int Id{ get; set; }
 
         // Fields
         [Column(TypeName = "varchar(255)")]
         public string Text { get; set; }
 
-        [Column(TypeName = "integer(10)")]
         public int? Order { get; set; }
 
         // Foreign Key
