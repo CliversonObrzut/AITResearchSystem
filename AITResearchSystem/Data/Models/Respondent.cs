@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace AITResearchSystem.Data.Models
 {
@@ -35,6 +35,6 @@ namespace AITResearchSystem.Data.Models
         public DateTime Date { get; set; }
 
         // Table Relationship
-        public IQueryable<Answer> RespondentAnswers { get; set; }
+        public List<Answer> RespondentAnswers { get; set; }
     }
 }

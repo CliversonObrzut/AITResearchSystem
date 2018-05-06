@@ -74,7 +74,7 @@ namespace AITResearchSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Options",
+                name: "QuestionOption",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -85,9 +85,9 @@ namespace AITResearchSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Options", x => x.Id);
+                    table.PrimaryKey("PK_QuestionOption", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Options_Question_QuestionId",
+                        name: "FK_QuestionOption_Question_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Question",
                         principalColumn: "Id",
@@ -109,9 +109,9 @@ namespace AITResearchSystem.Migrations
                 {
                     table.PrimaryKey("PK_Answer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Answer_Options_OptionId",
+                        name: "FK_Answer_QuestionOption_OptionId",
                         column: x => x.OptionId,
-                        principalTable: "Options",
+                        principalTable: "QuestionOption",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -144,14 +144,14 @@ namespace AITResearchSystem.Migrations
                 column: "RespondentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Options_QuestionId",
-                table: "Options",
-                column: "QuestionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Question_QuestionTypeId",
                 table: "Question",
                 column: "QuestionTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuestionOption_QuestionId",
+                table: "QuestionOption",
+                column: "QuestionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -163,7 +163,7 @@ namespace AITResearchSystem.Migrations
                 name: "Staff");
 
             migrationBuilder.DropTable(
-                name: "Options");
+                name: "QuestionOption");
 
             migrationBuilder.DropTable(
                 name: "Respondent");

@@ -62,7 +62,7 @@ namespace AITResearchSystem.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Options");
+                    b.ToTable("QuestionOption");
                 });
 
             modelBuilder.Entity("AITResearchSystem.Data.Models.Question", b =>

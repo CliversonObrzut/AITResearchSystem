@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace AITResearchSystem.Data.Models
 {
@@ -22,7 +22,7 @@ namespace AITResearchSystem.Data.Models
 
         // Table Relationship
         public QuestionType QuestionType { get; set; }
-        public IQueryable<Option> QuestionOptions { get; set; }
-        public IQueryable<Answer> QuestionAnswers { get; set; }
+        public List<Option> QuestionOptions { get; set; }
+        public List<Answer> QuestionAnswers { get; set; }
     }
 }

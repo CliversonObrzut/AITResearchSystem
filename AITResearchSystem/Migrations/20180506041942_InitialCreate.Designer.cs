@@ -11,7 +11,7 @@ using System;
 namespace AITResearchSystem.Migrations
 {
     [DbContext(typeof(AitResearchDbContext))]
-    [Migration("20180505024908_InitialCreate")]
+    [Migration("20180506041942_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace AITResearchSystem.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Options");
+                    b.ToTable("QuestionOption");
                 });
 
             modelBuilder.Entity("AITResearchSystem.Data.Models.Question", b =>

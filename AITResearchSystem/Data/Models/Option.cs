@@ -4,19 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AITResearchSystem.Data.Models
 {
+    [Table("QuestionOption")]
     public class Option
     {
-        //Table particular data
+        // Primary Key
         [Key]
         public int Id { get; set; }
 
+        // Fields
         [Required]
         [Column(TypeName = "varchar(255)")]
         public string Text { get; set; }
 
         public int? NextQuestion { get; set; }
 
-        // Table Foreign Keys
+        // Foreign Key
         public int QuestionId { get; set; }
 
         // Table Relationship
