@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using AITResearchSystem.Data;
 using AITResearchSystem.Models;
 using AITResearchSystem.Services;
+using AITResearchSystem.Services.Interfaces;
 
 namespace AITResearchSystem
 {
@@ -33,6 +34,10 @@ namespace AITResearchSystem
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IAnswer, SqlAnswerData>();
+            services.AddScoped<IOption, SqlOptionData>();
+            services.AddScoped<IQuestion, SqlQuestionData>();
+            services.AddScoped<IRespondent, SqlRespondentData>();
 
             services.AddMvc();
         }
