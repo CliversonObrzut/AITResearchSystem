@@ -4,7 +4,7 @@ using AITResearchSystem.Data.Models;
 
 namespace AITResearchSystem.Services.Interfaces
 {
-    interface IAnswer
+    public interface IAnswer
     {
         IEnumerable GetAll();
         Answer Get(int id);

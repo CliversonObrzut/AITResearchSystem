@@ -1,0 +1,33 @@
+﻿<div>
+    <nav class="navbar navbar-default navigation-clean-button">
+        <div class="container">
+            <div class="navbar-header">
+                <a asp-controller="Home" asp-action="Index" asp- class="navbar-brand">
+                    <img src="~/images/AITResearch_logo.png">
+                </a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                @if (ViewData["Title"].ToString() != "Login" && ViewData["Title"].ToString() != "Register")
+                {
+                <p class="text-nowrap navbar-text navbar-right actions">
+                    <label>@ViewData["User"]</label>
+                    @if (ViewData["Title"].ToString() == "Welcome")
+                    {
+                        <a asp-controller="Home" asp-action="Login" class="btn btn-default action-button" role="button">Log In</a>
+                    }
+                    @if (ViewData["Title"].ToString() == "Admin")
+                    {
+                        <a asp-controller="Home" asp-action="Logout" class="btn btn-default action-button" role="button">Log Out</a>
+                    }
+                </p>
+                }
+            </div>
+        </div>
+    </nav>
+</div>

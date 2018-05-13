@@ -8,6 +8,7 @@ using AITResearchSystem.Data;
 using AITResearchSystem.Models;
 using AITResearchSystem.Services;
 using AITResearchSystem.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace AITResearchSystem
 {
@@ -38,6 +39,11 @@ namespace AITResearchSystem
             services.AddScoped<IOption, SqlOptionData>();
             services.AddScoped<IQuestion, SqlQuestionData>();
             services.AddScoped<IRespondent, SqlRespondentData>();
+            services.AddScoped<IStaff, SqlStaffData>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IpAddressService>();
+
 
             services.AddMvc();
         }

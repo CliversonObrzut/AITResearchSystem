@@ -3,9 +3,10 @@ using AITResearchSystem.Data.Models;
 
 namespace AITResearchSystem.Services.Interfaces
 {
-    interface IQuestion
+    public interface IQuestion
     {
         IEnumerable<Question> GetAll();
-        Question Get(int id);
+        Question GetById(int id);
+        Question GetByOrder(int order);
     }
 }

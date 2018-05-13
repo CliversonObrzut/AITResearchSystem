@@ -15,9 +15,9 @@ namespace AITResearchSystem.Services
             _context = context;
         }
 
-        public Option Get(int id)
+        public IEnumerable<Option> GetByQuestion(int questionId)
         {
-            return _context.Options.FirstOrDefault(option => option.Id == id);
+            return _context.Options.Where(option => option.QuestionId == questionId);
         }
 
         public IEnumerable<Option> GetAll()

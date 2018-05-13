@@ -3,9 +3,9 @@ using AITResearchSystem.Data.Models;
 
 namespace AITResearchSystem.Services.Interfaces
 {
-    interface IOption
+    public interface IOption
     {
         IEnumerable<Option> GetAll();
-        Option Get(int id);
+        IEnumerable<Option> GetByQuestion(int questionId);
     }
 }

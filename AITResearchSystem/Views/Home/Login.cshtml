@@ -1,0 +1,29 @@
+﻿@model StaffViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-clean">
+    <form method="post">
+        <h2 class="sr-only">Login Form</h2>
+        <div class="illustration">
+            <i class="icon ion-ios-navigate"></i>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" type="email" name="email" placeholder="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" type="password" name="password" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Login</button>
+        </div>
+        @Html.AntiForgeryToken()
+    </form>
+</div>

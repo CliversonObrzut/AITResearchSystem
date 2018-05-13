@@ -3,6 +3,7 @@ using System.Linq;
 using AITResearchSystem.Data;
 using AITResearchSystem.Data.Models;
 using AITResearchSystem.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AITResearchSystem.Services
 {
@@ -15,7 +16,7 @@ namespace AITResearchSystem.Services
             _context = context;
         }
 
-        public Question Get(int id)
+        public Question GetById(int id)
         {
             return _context.Questions.FirstOrDefault(answer => answer.Id == id);
         }
@@ -23,6 +24,14 @@ namespace AITResearchSystem.Services
         public IEnumerable<Question> GetAll()
         {
             return _context.Questions.ToList();
+        }
+
+        public Question GetByOrder(int order)
+        {
+            return _context.Questions
+                .Include(qt => qt.QuestionType)
+                .Include(qo => qo.QuestionOptions)
+                .FirstOrDefault(question => question.Order == order);
         }
     }
 }

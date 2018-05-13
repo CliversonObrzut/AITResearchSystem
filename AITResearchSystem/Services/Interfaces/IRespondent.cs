@@ -3,7 +3,7 @@ using AITResearchSystem.Data.Models;
 
 namespace AITResearchSystem.Services.Interfaces
 {
-    interface IRespondent
+    public interface IRespondent
     {
         IEnumerable<Respondent> GetAll();
         Respondent Get(int id);

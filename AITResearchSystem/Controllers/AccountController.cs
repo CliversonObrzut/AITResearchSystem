@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using AITResearchSystem.Models;
 using AITResearchSystem.Models.AccountViewModels;
 using AITResearchSystem.Services;
+using AITResearchSystem.Services.Interfaces;
 
 namespace AITResearchSystem.Controllers
 {

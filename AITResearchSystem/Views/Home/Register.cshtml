@@ -1,0 +1,38 @@
+﻿@model RegisterFirstViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="register-clean">
+    <form method="post">
+        <h2 class="sr-only">Register Form</h2>
+        <div class="illustration">
+            <i class="fa fa-user-circle"></i>
+        </div>
+        <div class="form-group">
+            <label asp-for="GivenNames" class="control-label"></label>
+            <input asp-for="GivenNames" class="form-control" type="text">
+            <span asp-validation-for="GivenNames" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" type="text">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateOfBirth" class="control-label"></label>
+            <input asp-for="DateOfBirth" class="form-control" type="date">
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" type="text" placeholder="(ex: 0434549842)">
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Register</button>
+        </div>
+        @Html.AntiForgeryToken()
+    </form>
+</div>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using AITResearchSystem.Services;
+using AITResearchSystem.Services.Interfaces;
 
 namespace AITResearchSystem.Services
 {
