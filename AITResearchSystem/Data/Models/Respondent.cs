@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +36,7 @@ namespace AITResearchSystem.Data.Models
         public DateTime Date { get; set; }
 
         // Table Relationship
+        [JsonIgnore]
         public List<Answer> RespondentAnswers { get; set; }
     }
 }

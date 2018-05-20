@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
 using Microsoft.AspNetCore.Http;
 
 namespace AITResearchSystem.Services
@@ -18,9 +20,30 @@ namespace AITResearchSystem.Services
             try
             {
                 ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
-                if (!string.IsNullOrEmpty(ipAddress))
+                if (string.IsNullOrEmpty(ipAddress))
                 {
                     ipAddress = "127.0.0.1";
+                }
+                else if (ipAddress == "::1") // it is localhost
+                {
+                    //This is for Local(LAN) Connected ID Address
+                    string stringHostName = Dns.GetHostName();
+                    //Get Ip Host Entry
+                    //System.Net.IPHostEntry ipHostEntries = System.Net.Dns.GetHostEntry(stringHostName);
+                    //Get Ip Address From The Dns Host Address List
+                    IPAddress[] arrIpAddress = Dns.GetHostAddresses(stringHostName);
+
+                    try
+                    {
+                        foreach (IPAddress ip4 in arrIpAddress.Where(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork))
+                        {
+                            ipAddress = ip4.ToString();
+                        }
+                    }
+                    catch
+                    {
+                        ipAddress = "127.0.0.1";
+                    }
                 }
             }
             catch (Exception)

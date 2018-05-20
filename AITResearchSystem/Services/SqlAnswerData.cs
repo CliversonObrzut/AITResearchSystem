@@ -29,6 +29,19 @@ namespace AITResearchSystem.Services
             }
         }
 
+        public void AddRange(List<Answer> answers)
+        {
+            try
+            {
+                _context.Answers.AddRange(answers);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO Implement add answer exception
+            }
+        }
+
         public IEnumerable<Answer> FilterByAgeRange(string ageRange)
         {
             return _context.Answers.Where(answer => answer.Option.Text == ageRange)

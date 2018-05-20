@@ -9,6 +9,7 @@ using AITResearchSystem.Models;
 using AITResearchSystem.Services;
 using AITResearchSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System;
 
 namespace AITResearchSystem
 {
@@ -40,12 +41,22 @@ namespace AITResearchSystem
             services.AddScoped<IQuestion, SqlQuestionData>();
             services.AddScoped<IRespondent, SqlRespondentData>();
             services.AddScoped<IStaff, SqlStaffData>();
+            services.AddSingleton<SessionService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IpAddressService>();
 
 
             services.AddMvc();
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.Name = ".AITResearch.Session";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +76,8 @@ namespace AITResearchSystem
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

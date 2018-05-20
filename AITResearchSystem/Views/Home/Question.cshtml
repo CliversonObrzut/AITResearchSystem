@@ -7,36 +7,53 @@
 <div class="container container-main">
     <form method="post">
         <div class="jumbotron">
-            @Html.HiddenFor(m => m.Order)
-            @Html.HiddenFor(m => m.Type)
             <h2 class="question-background">@Model.QuestionNumber</h2>
-            <p id="question-text">@Model.Text<br></p>
+            <p id="question-text">@Model.QuestionText<br></p>
             @if (@Model.Order == 4)
             {
-                <input class="form-control" type="text" placeholder="Suburb">
-                <input class="form-control" type="text" placeholder="Post Code"/>
+                <span asp-validation-for="Suburb" class="text-danger"></span>
+                <input asp-for="Suburb" class="form-control col-md-6" type="text" placeholder="Suburb">
+                <span asp-validation-for="PostCode" class="text-danger"></span>
+                <input asp-for="PostCode" class="form-control col-md-6" type="text" placeholder="Post Code" />
             }
             @if (@Model.Order == 5)
             {
-                <input class="form-control" type="text" placeholder="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <input asp-for="Email" class="form-control col-md-6" type="text" placeholder="Email">
             }
-            @if (@Model.Order != 4 && @Model.Order != 5)
+            @if (@Model.Order >= 1 && @Model.Order <= 3)
             {
+                <span asp-validation-for="OptionRadioAnswer" class="text-danger"></span>
                 <ul>
                     @foreach (var option in Model.Options)
                     {
-                        <li><input type="radio">@option.Text</li>
+                        <li><input asp-for="OptionRadioAnswer" value="@option.Id" type="radio">@option.Text</li>
+                    }
+                </ul>
+            }
+            @if (@Model.Order >= 6)
+            {
+                <span asp-validation-for="OptionCheckboxAnswers" class="text-danger"></span>
+                <ul>
+                    @for (var i = 0; i < Model.Options.Count; i++)
+                    {
+                    <li>
+                        <input asp-for=@Model.OptionCheckboxAnswers[i].IsSelected type="checkbox">@Model.Options[i].Text
+                        <input asp-for="@Model.OptionCheckboxAnswers[i].Id" value="@Model.Options[i].Id" type="hidden" />
+                        <input asp-for="@Model.OptionCheckboxAnswers[i].NextQuestion" value="@Model.Options[i].NextQuestion" type="hidden" />
+                    </li>
                     }
                 </ul>
             }
             <p id="start-register-buttons">
                 @if (@Model.Order != 1)
                 {
-                    <button class="btn btn-default btn-lg btn-previous" type="submit">
+                    <button asp-controller="Home" asp-action="PreviousQuestion" class="btn btn-default btn-lg btn-previous">
                         <i class="glyphicon glyphicon-arrow-left"></i>Previous
                     </button>
                 }
-                <button class="btn btn-default btn-lg btn-next" type="submit">Next
+                <button class="btn btn-default btn-lg btn-next" type="submit">
+                    Next
                     <i class="glyphicon glyphicon-arrow-right"></i>
                 </button>
             </p>

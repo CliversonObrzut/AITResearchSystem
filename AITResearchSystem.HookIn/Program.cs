@@ -487,13 +487,13 @@ namespace AITResearchSystem.HookIn
                 new Option
                 {
                     Text = "Male",
-                    NextQuestion = 2,
+                    NextQuestion = null,
                     QuestionId = 1
                 },
                 new Option
                 {
                     Text = "Female",
-                    NextQuestion = 2,
+                    NextQuestion = null,
                     QuestionId = 1
                 },
 
@@ -501,49 +501,49 @@ namespace AITResearchSystem.HookIn
                 new Option
                 {
                     Text = "Under 18 years old",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
                 new Option
                 {
                     Text = "18 - 24 years old",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
                 new Option
                 {
                     Text = "25 - 34 years old",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
                 new Option
                 {
                     Text = "35 - 44 years old",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
                 new Option
                 {
                     Text = "45 - 54 years old",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
                 new Option
                 {
                     Text = "55 - 64 years old",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
                 new Option
                 {
                     Text = "65 - 74 years old",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
                 new Option
                 {
                     Text = "75 years or older",
-                    NextQuestion = 3,
+                    NextQuestion = null,
                     QuestionId = 2
                 },
 
@@ -551,55 +551,55 @@ namespace AITResearchSystem.HookIn
                 new Option
                 {
                     Text = "New South Wales (NSW)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "Queensland (QLD)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "South Australia (SA)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "Tasmania (TAS)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "Victoria (VIC)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "Western Australia (WA)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "Australia Capital Territory (ACT)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "Jervis Bay Territory (JBT)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
                 new Option
                 {
                     Text = "Northern Territory (NT)",
-                    NextQuestion = 4,
+                    NextQuestion = null,
                     QuestionId = 3
                 },
 
@@ -625,19 +625,19 @@ namespace AITResearchSystem.HookIn
                 new Option
                 {
                     Text = "Bendigo",
-                    NextQuestion = 7,
+                    NextQuestion = null,
                     QuestionId = 6
                 },
                 new Option
                 {
                     Text = "St George",
-                    NextQuestion = 7,
+                    NextQuestion = null,
                     QuestionId = 6
                 },
                 new Option
                 {
                     Text = "Suncorp",
-                    NextQuestion = 7,
+                    NextQuestion = null,
                     QuestionId = 6
                 },
 
@@ -707,25 +707,25 @@ namespace AITResearchSystem.HookIn
                 new Option
                 {
                     Text = "Internet Banking",
-                    NextQuestion = 7,
+                    NextQuestion = null,
                     QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Home Loan",
-                    NextQuestion = 7,
+                    NextQuestion = null,
                     QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Credit Card",
-                    NextQuestion = 7,
+                    NextQuestion = null,
                     QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Share Investment",
-                    NextQuestion = 7,
+                    NextQuestion = null,
                     QuestionId = 8
                 },
 
@@ -939,25 +939,25 @@ namespace AITResearchSystem.HookIn
                 new Question
                 {
                     Text = "What bank services do you use?", // id = 8
-                    Order = null,
+                    Order = 8,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
                     Text = "In the newspaper, what are your most interested news section?", // id = 9
-                    Order = null,
+                    Order = 9,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
                     Text = "About what sports do you most read in the sports section?", // id = 10
-                    Order = null,
+                    Order = 10,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
                     Text = "About what places do you like to read in the travel section?", // id = 11
-                    Order = null,
+                    Order = 11,
                     QuestionTypeId = 2 // checkbox
                 }
             };

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,6 +17,7 @@ namespace AITResearchSystem.Data.Models
         public string Type { get; set; }
 
         // Table Relationship
+        [JsonIgnore]
         public List<Question> QuestionTypeQuestions { get; set; }
     }
 }
