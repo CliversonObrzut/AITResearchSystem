@@ -1,5 +1,6 @@
 ﻿using AITResearchSystem.Data.Models;
 using System.Collections.Generic;
+using AITResearchSystem.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -11,27 +12,12 @@ namespace AITResearchSystem.Services
         private const string SessionKeyAnswers = "_answers";
         private const string SessionKeyFollowUpQuestions = "_followUpQuestions";
         private const string SessionKeySessionQuestions = "_sessionQuestions";
-        private const string SessionKeyQuestionSequence = "_questionSequence";
 
         private readonly IHttpContextAccessor _accessor;
 
         public SessionService(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
-        }
-
-        /// <summary>
-        /// Set in session the question sequence number to be displayed to the respondent
-        /// </summary>
-        /// <param name="questionSequence"></param>
-        public void SetQuestionSequence(int questionSequence)
-        {
-            _accessor.HttpContext.Session.SetInt32(SessionKeyQuestionSequence, questionSequence);
-        }
-
-        public int? GetQuestionSequence()
-        {
-            return _accessor.HttpContext.Session.GetInt32(SessionKeyQuestionSequence);
         }
 
         public void SetRespondent(Respondent resp)
@@ -65,29 +51,29 @@ namespace AITResearchSystem.Services
             return followUpQuestions;
         }
 
-        public void AddNewAnswers(List<Answer> newAnswers)
+        public void AddNewAnswers(List<AnswerViewModel> newAnswers)
         {
-            List<Answer> answers = GetAnswers();
+            List<AnswerViewModel> answers = GetAnswers();
             answers.AddRange(newAnswers);
             SetAnswers(answers);
         }
 
-        public void AddNewAnswer(Answer newAnswer)
+        public void AddNewAnswer(AnswerViewModel newAnswer)
         {
-            List<Answer> answers = GetAnswers();
+            List<AnswerViewModel> answers = GetAnswers();
             answers.Add(newAnswer);
             SetAnswers(answers);
         }
 
-        public void SetAnswers(List<Answer> answers)
+        public void SetAnswers(List<AnswerViewModel> answers)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyAnswers, JsonConvert.SerializeObject(answers));
         }
 
-        public List<Answer> GetAnswers()
+        public List<AnswerViewModel> GetAnswers()
         {
             var value = _accessor.HttpContext.Session.GetString(SessionKeyAnswers);
-            var answers = value != null ? JsonConvert.DeserializeObject<List<Answer>>(value) : new List<Answer>();
+            var answers = value != null ? JsonConvert.DeserializeObject<List<AnswerViewModel>>(value) : new List<AnswerViewModel>();
             return answers;
         }
 

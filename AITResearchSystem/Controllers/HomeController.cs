@@ -38,8 +38,24 @@ namespace AITResearchSystem.Controllers
 
         public IActionResult Index()
         {
-            ViewData["User"] = "Anonymous";
+            if (_session.GetRespondent() != null)
+                ViewData["Session"] = "true";
+            else
+                ViewData["Session"] = "false";
             return View();
+        }
+
+        public IActionResult Restart()
+        {
+            _session.Clear();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Continue()
+        {
+            var question = _session.GetCurrentQuestion();
+            _session.RemoveCurrentQuestion();
+            return RedirectToAction(nameof(Question), new { nextQuestion = question.Order });
         }
 
         [HttpGet]
@@ -74,6 +90,12 @@ namespace AITResearchSystem.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            if (_session.GetRespondent() != null)
+            {
+                var question = _session.GetCurrentQuestion();
+                _session.RemoveCurrentQuestion();
+                return RedirectToAction(nameof(Question), new {nextQuestion = question.Order});
+            }
             var model = new RegisterFirstViewModel();
             return View(model);
 
@@ -117,21 +139,29 @@ namespace AITResearchSystem.Controllers
                 ViewData["User"] = respondent.GivenNames + " " + respondent.LastName;
 
             Question question = _questionData.GetByOrder(nextQuestion);
+
+            if(_session.GetSessionQuestions().Any(q => q.Id == question.Id))
+            {
+                var questionInSession = _session.GetCurrentQuestion();
+                _session.RemoveCurrentQuestion();
+                return RedirectToAction(nameof(Question), new { nextQuestion = questionInSession.Order });
+            }   
+
             _session.AddQuestion(question);
-            _session.SetQuestionSequence((_session.GetQuestionSequence() ?? 0) + 1);
 
             var model = new QuestionViewModel
             {
                 Type = question.QuestionType.Type,
                 QuestionText = question.Text,
                 Order = question.Order,
-                Options = question.QuestionOptions,
-                QuestionSequence = _session.GetQuestionSequence()
+                Options = question.QuestionOptions
             };
 
             var answers = _session.GetAnswers();
             if (answers.Any(qa => qa.QuestionId == question.Id))
             {
+                model.QuestionSequence = answers.FirstOrDefault(a => a.QuestionId == question.Id)?.QuestionSequence;
+
                 if (question.QuestionType.Type == "radio")
                 {
                     model.OptionRadioAnswer = answers.FirstOrDefault(a => a.QuestionId == question.Id)?.OptionId.ToString();
@@ -141,12 +171,14 @@ namespace AITResearchSystem.Controllers
                 {
                     if (question.Order == 4)
                     {
-                        //TODO Create an AnswerViewModel to identify which answer.Text is Suburb and which one is PostCode
+                        model.Suburb = answers.Find(a => a.QuestionId == question.Id && !a.Suburb.Equals("")).Suburb;
+                        //model.PostCode = answers.FirstOrDefault(a => a.QuestionId == question.Id && a.PostCode != null).PostCode;
+                        model.Postcode = answers.Find(a => a.QuestionId == question.Id && !a.Postcode.Equals("")).Postcode;
                     }
 
                     if (question.Order == 5)
                     {
-                        model.Email = answers.FirstOrDefault(a => a.QuestionId == question.Id)?.Text;
+                        model.Email = answers.Find(a => a.QuestionId == question.Id).Email;
                     }
                 }
 
@@ -168,7 +200,7 @@ namespace AITResearchSystem.Controllers
 
                     model.OptionCheckboxAnswers = checkboxesAnswers;
                 }
-                List<Answer> revisedAnswers = new List<Answer>();
+                var revisedAnswers = new List<AnswerViewModel>();
                 foreach (var answer in answers)
                 {
                     if (answer.QuestionId != question.Id)
@@ -177,6 +209,14 @@ namespace AITResearchSystem.Controllers
                     }
                 }
                 _session.SetAnswers(revisedAnswers);
+            }
+            else if(answers.Count == 0)
+            {
+                model.QuestionSequence = 1;
+            }
+            else
+            {
+                model.QuestionSequence = answers[answers.Count - 1].QuestionSequence + 1;
             }
 
             return View(model);
@@ -191,12 +231,14 @@ namespace AITResearchSystem.Controllers
             {
                 if (currentQuestion.QuestionType.Type == "radio")
                 {
-                    var answer = new Answer
+                    var answer = new AnswerViewModel
                     {
-                        Text = "",
+                        QuestionSequence = model.QuestionSequence,
+                        Email = "",
+                        Suburb = "",
+                        Postcode = "",
                         OptionId = int.Parse(model.OptionRadioAnswer),
                         QuestionId = currentQuestion.Id,
-                        RespondentId = 0
                     };
                     _session.AddNewAnswer(answer);
                 }
@@ -205,23 +247,27 @@ namespace AITResearchSystem.Controllers
                 {
                     if (currentQuestion.Order == 4)
                     {
-                        var answers = new List<Answer>();
+                        var answers = new List<AnswerViewModel>();
 
-                        var suburbAnswer = new Answer
+                        var suburbAnswer = new AnswerViewModel()
                         {
-                            Text = model.Suburb,
+                            QuestionSequence = model.QuestionSequence,
+                            Email = "",
+                            Suburb = model.Suburb,
+                            Postcode = "",
                             OptionId = null,
-                            QuestionId = currentQuestion.Id,
-                            RespondentId = 0
+                            QuestionId = currentQuestion.Id
                         };
                         answers.Add(suburbAnswer);
 
-                        var postcodeAnswer = new Answer
+                        var postcodeAnswer = new AnswerViewModel()
                         {
-                            Text = model.PostCode,
+                            QuestionSequence = model.QuestionSequence,
+                            Email = "",
+                            Suburb = "",
+                            Postcode = model.Postcode,
                             OptionId = null,
-                            QuestionId = currentQuestion.Id,
-                            RespondentId = 0
+                            QuestionId = currentQuestion.Id
                         };
                         answers.Add(postcodeAnswer);
 
@@ -229,12 +275,14 @@ namespace AITResearchSystem.Controllers
                     }
                     else if (currentQuestion.Order == 5)
                     {
-                        var emailAnswer = new Answer
+                        var emailAnswer = new AnswerViewModel
                         {
-                            Text = model.Email,
+                            QuestionSequence = model.QuestionSequence,
+                            Email = model.Email,
+                            Suburb = "",
+                            Postcode = "",
                             OptionId = null,
-                            QuestionId = currentQuestion.Id,
-                            RespondentId = 0
+                            QuestionId = currentQuestion.Id
                         };
                         _session.AddNewAnswer(emailAnswer);
                     }
@@ -242,17 +290,19 @@ namespace AITResearchSystem.Controllers
 
                 if (currentQuestion.QuestionType.Type == "checkbox")
                 {
-                    var answers = new List<Answer>();
+                    var answers = new List<AnswerViewModel>();
                     foreach (var option in model.OptionCheckboxAnswers)
                     {
                         if (option.IsSelected)
                         {
-                            var answer = new Answer
+                            var answer = new AnswerViewModel()
                             {
-                                Text = "",
+                                QuestionSequence = model.QuestionSequence,
+                                Email = "",
+                                Suburb = "",
+                                Postcode = "",
                                 OptionId = option.Id,
-                                QuestionId = currentQuestion.Id,
-                                RespondentId = 0
+                                QuestionId = currentQuestion.Id
                             };
                             answers.Add(answer);
                             if (option.NextQuestion != null)
@@ -282,7 +332,6 @@ namespace AITResearchSystem.Controllers
             model.Type = currentQuestion.QuestionType.Type;
             model.QuestionText = currentQuestion.Text;
             model.Order = currentQuestion.Order;
-            model.QuestionSequence = _session.GetQuestionSequence() ?? 1;
             model.Options = currentQuestion.QuestionOptions;
             return View(model);
         }
@@ -306,7 +355,7 @@ namespace AITResearchSystem.Controllers
                 }
 
                 if (currentQuestion.Order == 4 &&
-                    model.PostCode == null)
+                    model.Postcode == null)
                 {
                     ModelState.AddModelError("PostCode", "Postcode is required");
                 }
@@ -351,7 +400,7 @@ namespace AITResearchSystem.Controllers
                     return RedirectToAction(nameof(Question), new {nextQuestion = (int?) 7});
                 UpdateAnswersInDatabase();
                 _session.Clear();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(End));
             }
 
             var order = followUpQuestions[0].Order;
@@ -364,12 +413,26 @@ namespace AITResearchSystem.Controllers
         {
             Respondent respondent = _session.GetRespondent();
             _respondentData.Add(respondent);
-            List<Answer> answers = _session.GetAnswers();
-            foreach (var answer in answers)
+            List<AnswerViewModel> answersInSession = _session.GetAnswers();
+            List<Answer> answers = new List<Answer>();
+            foreach (var answerInSession in answersInSession)
             {
-                answer.RespondentId = respondent.Id;
+                var answer = answerInSession.ConvertToAnswer(respondent);
+                answers.Add(answer);
             }
             _answerData.AddRange(answers);
+        }
+
+        public IActionResult End()
+        {
+            if (_session.GetRespondent() != null)
+            {
+                var question = _session.GetCurrentQuestion();
+                _session.RemoveCurrentQuestion();
+                return RedirectToAction(nameof(Question), new { nextQuestion = question.Order });
+            }
+            
+            return View();
         }
 
         public IActionResult Admin(string email)
@@ -385,6 +448,12 @@ namespace AITResearchSystem.Controllers
 
         public IActionResult StartAnonymously()
         {
+            if (_session.GetRespondent() != null)
+            {
+                var question = _session.GetCurrentQuestion();
+                _session.RemoveCurrentQuestion();
+                return RedirectToAction(nameof(Question), new { nextQuestion = question.Order });
+            }
             var respondent = new Respondent
             {
                 GivenNames = "",
@@ -403,7 +472,6 @@ namespace AITResearchSystem.Controllers
         public IActionResult PreviousQuestion()
         {
             _session.RemoveCurrentQuestion();
-            _session.SetQuestionSequence(_session.GetQuestionSequence()-2 ?? 1);
             Question previousQuestion = _session.GetCurrentQuestion();
             _session.RemoveCurrentQuestion();
             return RedirectToAction(nameof(Question), new { nextQuestion = previousQuestion.Order });

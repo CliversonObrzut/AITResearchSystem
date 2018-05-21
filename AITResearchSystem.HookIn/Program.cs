@@ -926,25 +926,25 @@ namespace AITResearchSystem.HookIn
                 },
                 new Question
                 {
-                    Text = "What bank do you use? (max of 4)", // id = 6
+                    Text = "What bank(s) do you use? (max of 4)", // id = 6
                     Order = 6,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
-                    Text = "What newspaper do you usually read? (max of 2)", // id = 7
+                    Text = "What newspaper(s) do you usually read? (max of 2)", // id = 7
                     Order = 7,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
-                    Text = "What bank services do you use?", // id = 8
+                    Text = "What bank service(s) do you use?", // id = 8
                     Order = 8,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
-                    Text = "In the newspaper, what are your most interested news section?", // id = 9
+                    Text = "In the newspaper, what section(s) are you most interested?", // id = 9
                     Order = 9,
                     QuestionTypeId = 2 // checkbox
                 },

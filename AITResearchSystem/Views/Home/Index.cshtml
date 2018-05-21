@@ -1,17 +1,31 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Welcome";
 }
 
 <div class="container container-main">
     <div class="jumbotron">
-        <h2 id="index-page-h2">AIT RESEARCH QUESTIONAIRE</h2>
-        <p id="index-page-p">
+        <h2 id="index-page-h2">AIT RESEARCH QUESTIONNAIRE</h2>
+        <p id="index-page-p1">
             You are about to answer a market research about people habits such as newspaper read, travel preferences, favourite sports, bank used, etc, including some personal details such as age range, email address, home territory, suburb and postcode.
             You can answer as a visitor (anonymously) or a registered person. A registered person will also provide name, date of birth and phone number.<br>
         </p>
+        @if ((string) ViewData["Session"] == "true")
+        {
+            <p id="index-page-p2">You have started a questionnaire. What would you like to do?</p>
+        }
         <p id="start-register-buttons">
-            <a asp-controller="Home" asp-action="StartAnonymously" class="btn btn-default btn-lg" role="button">Answer Anonymously</a>
-            <a asp-controller="Home" asp-action="Register" class="btn btn-default btn-lg" role="button">Register First</a>
+            @if ((string)ViewData["Session"] == "true")
+            {
+                <a asp-controller="Home" asp-action="Restart" class="btn btn-default btn-lg" role="button">Restart</a>
+                <a asp-controller="Home" asp-action="Continue" class="btn btn-default btn-lg" role="button">Continue</a>
+            }
+            @if ((string)ViewData["Session"] == "false")
+            {
+                <a asp-controller="Home" asp-action="StartAnonymously" class="btn btn-default btn-lg" role="button">Answer Anonymously</a>
+                <a asp-controller="Home" asp-action="Register" class="btn btn-default btn-lg" role="button">Register First</a>
+            }
+
         </p>
     </div>
 </div>

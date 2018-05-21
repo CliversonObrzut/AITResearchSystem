@@ -22,11 +22,9 @@ namespace AITResearchSystem.ViewModels
         public string Suburb { get; set; }
 
         [StringLength(255, ErrorMessage = "Limit is 255 characteres")]
-        [DataType(DataType.PostalCode,ErrorMessage = "It is not a valid post code")]
-        public string PostCode { get; set; }
+        public string Postcode { get; set; }
 
         [StringLength(255, ErrorMessage = "Limit is 255 characteres")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "It is not a valid email address")]
         public string Email { get; set; }
 
         public List<Option> Options { get; set; }
