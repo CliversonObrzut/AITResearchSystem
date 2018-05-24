@@ -22,6 +22,7 @@ namespace AITResearchSystem.Controllers
         private readonly IpAddressService _ipService;
         private readonly IStaff _staffData;
         private readonly IQuestion _questionData;
+        private readonly IOption _optionData;
         private readonly IRespondent _respondentData;
         private readonly IAnswer _answerData;
 
@@ -30,6 +31,7 @@ namespace AITResearchSystem.Controllers
             IStaff staffDb,
             IQuestion questionData,
             IRespondent respondentData,
+            IOption optionData,
             IAnswer answerData,
             SessionService session)
         {
@@ -37,6 +39,7 @@ namespace AITResearchSystem.Controllers
             _staffData = staffDb;
             _questionData = questionData;
             _respondentData = respondentData;
+            _optionData = optionData;
             _answerData = answerData;
             _session = session;
         }
@@ -453,7 +456,83 @@ namespace AITResearchSystem.Controllers
         public IActionResult Admin(string email)
         {
             ViewData["User"] = email;
-            return View();
+            List<Respondent> respondents = _respondentData.GetAll().ToList();
+            List<Option> questionOptions = _optionData.GetAll().ToList();
+
+
+            var model = new AdminViewModel
+            {
+                Genders = new List<DropdownOption>(),
+                AgeRanges = new List<DropdownOption>(),
+                States = new List<DropdownOption>()
+            };
+
+            for (int i = 0; i < 19; i++)
+            {
+                // options range for Genders
+                if (i >= 0 && i <= 1)
+                {
+                    DropdownOption gender = new DropdownOption
+                    {
+                        Id = questionOptions[i].Id,
+                        Text = questionOptions[i].Text,
+                        IsSelected = false
+                    };
+                    model.Genders.Add(gender);
+                }
+
+                // options range for Age Ranges
+                if (i >= 2 && i <= 9)
+                {
+                    DropdownOption ageRange = new DropdownOption
+                    {
+                        Id = questionOptions[i].Id,
+                        Text = questionOptions[i].Text,
+                        IsSelected = false
+                    };
+                    model.AgeRanges.Add(ageRange);
+                }
+
+                // options range for States/Territories
+                if (i >= 10 && i <= 18)
+                {
+                    DropdownOption state = new DropdownOption
+                    {
+                        Id = questionOptions[i].Id,
+                        Text = questionOptions[i].Text,
+                        IsSelected = false
+                    };
+                    model.States.Add(state);
+                }
+            }
+
+            List<TableRowAnswer> tableRowAnswers = new List<TableRowAnswer>();
+            foreach (var respondent in respondents)
+            {
+                var tableRowAnswer = new TableRowAnswer
+                {
+                    LastName = respondent.LastName,
+                    GivenNames = respondent.GivenNames,
+                    PhoneNumber = respondent.PhoneNumber
+                };
+                var raGenderOptionId = respondent.RespondentAnswers.Find(a => a.QuestionId == 1).OptionId;
+                tableRowAnswer.Gender = questionOptions.Find(o => o.Id == raGenderOptionId).Text;
+                var raAgeOptionId = respondent.RespondentAnswers.Find(a => a.QuestionId == 2).OptionId;
+                tableRowAnswer.AgeRange = questionOptions.Find(o => o.Id == raAgeOptionId).Text;
+                var raStateOptionId = respondent.RespondentAnswers.Find(a => a.QuestionId == 3).OptionId;
+                tableRowAnswer.State = questionOptions.Find(o => o.Id == raStateOptionId).Text;
+                var answersQuestionFour = respondent.RespondentAnswers.Where(a => a.QuestionId == 4).ToList();
+                var raSuburb = answersQuestionFour[0].Text;
+                var raPostCode = answersQuestionFour[1].Text;
+                tableRowAnswer.Suburb = raSuburb;
+                tableRowAnswer.Postcode = raPostCode;
+                tableRowAnswer.Email = respondent.RespondentAnswers.Find(a => a.QuestionId == 5).Text;
+      
+                tableRowAnswers.Add(tableRowAnswer);
+            }
+
+            model.Answers = tableRowAnswers.OrderBy(a => a.LastName).ToList();
+            return View(model);
         }
 
         public IActionResult Error()

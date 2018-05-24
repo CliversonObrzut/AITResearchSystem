@@ -3,6 +3,7 @@ using System.Linq;
 using AITResearchSystem.Data;
 using AITResearchSystem.Data.Models;
 using AITResearchSystem.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AITResearchSystem.Services
 {
@@ -17,12 +18,14 @@ namespace AITResearchSystem.Services
 
         public IEnumerable<Respondent> GetAll()
         {
-            return _context.Respondents.ToList();
+            return _context.Respondents.Include(a => a.RespondentAnswers).ToList();
         }
 
         public Respondent Get(int id)
         {
-            return _context.Respondents.FirstOrDefault(user => user.Id == id);
+            return _context.Respondents
+                .Include(an => an.RespondentAnswers)
+                .FirstOrDefault(user => user.Id == id);
         }
 
         public void Add(Respondent respondent)

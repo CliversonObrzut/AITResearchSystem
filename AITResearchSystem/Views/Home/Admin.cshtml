@@ -1,3 +1,100 @@
-﻿@{
+﻿@model AdminViewModel
+
+@{
     ViewData["Title"] = "Admin";
 }
+
+<div class="container container-main">
+    <div class="jumbotron">
+        <h2 id="index-page-h2">QUESTIONNAIRE DATA</h2>
+        <form>
+            <div class="form-group" style="display:inline-block;">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Gender&nbsp;<span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        @foreach (var gender in @Model.Genders)
+                        {
+                            <li role="presentation">
+                                <input asp-for="@gender.IsSelected" type="checkbox" />@gender.Text
+                                <input asp-for="@gender.Id" value="@gender.Id" type="hidden" />
+                                <input asp-for="@gender.Text" value="@gender.Text" type="hidden" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group" style="display:inline-block;margin-left:20px;">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Age Range&nbsp;<span class="caret" style="/*display:block;*/"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        @foreach (var ageRange in @Model.AgeRanges)
+                        {
+                            <li role="presentation">
+                                <input asp-for="@ageRange.IsSelected" type="checkbox" />@ageRange.Text
+                                <input asp-for="@ageRange.Id" value="@ageRange.Id" type="hidden" />
+                                <input asp-for="@ageRange.Text" value="@ageRange.Text" type="hidden" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group" style="display:inline-block;margin-left:20px;">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">State/Territory&nbsp;<span class="caret" style="/*display:block;*/"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        @foreach (var state in @Model.States)
+                        {
+                            <li role="presentation">
+                                <input asp-for="@state.IsSelected" type="checkbox" />@state.Text
+                                <input asp-for="@state.Id" value="@state.Id" type="hidden" />
+                                <input asp-for="@state.Text" value="@state.Text" type="hidden" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group" style="display: inline-block; margin-left: 20px;">
+                <input class="form-control" type="search" placeholder="Search" style="display: inline-block; width: 400px;">
+            </div>
+            <div class="form-group" style="display: inline-block; /*margin-left:20px;*/">
+                <button class="btn btn-default" type="button" style="display: inline-block; /*float:right;*/">Search</button>
+            </div>
+            <div class="form-group" style="display: inline-block; margin-left: 20px; float: right;">
+                <button class="btn btn-default" type="button" style="display: inline-block; /*float:right;*/">Clear Filter!</button>
+            </div>
+        </form>
+        <div class="table-responsive" style="table-layout:fixed;border-style:double;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><label asp-for="@Model.Answers[0].LastName"></label></th>
+                        <th><label asp-for="@Model.Answers[0].GivenNames"></label></th>
+                        <th><label asp-for="@Model.Answers[0].Gender"></label></th>
+                        <th><label asp-for="@Model.Answers[0].AgeRange"></label></th>
+                        <th><label asp-for="@Model.Answers[0].State"></label></th>
+                        <th><label asp-for="@Model.Answers[0].Suburb"></label></th>
+                        <th><label asp-for="@Model.Answers[0].Postcode"></label></th>
+                        <th><label asp-for="@Model.Answers[0].PhoneNumber"></label></th>
+                        <th><label asp-for="@Model.Answers[0].Email"></label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var answer in @Model.Answers)
+                {
+                    <tr>
+                        <td>@answer.LastName</td>
+                        <td>@answer.GivenNames</td>
+                        <td>@answer.Gender</td>
+                        <td>@answer.AgeRange</td>
+                        <td>@answer.State</td>
+                        <td>@answer.Suburb</td>
+                        <td>@answer.Postcode</td>
+                        <td>@answer.PhoneNumber</td>
+                        <td>@answer.Email</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
