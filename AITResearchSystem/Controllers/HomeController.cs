@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using AITResearchSystem.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using AITResearchSystem.Models;
 using AITResearchSystem.Services;
 using AITResearchSystem.Services.Interfaces;
 using AITResearchSystem.ViewModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AITResearchSystem.Controllers
 {
@@ -67,7 +72,7 @@ namespace AITResearchSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(StaffViewModel model)
+        public async Task<IActionResult> Login(StaffViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -77,13 +82,21 @@ namespace AITResearchSystem.Controllers
                     ModelState.AddModelError("", "wrong email or password");
                     return View(model);
                 }
+                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, staff.Email));
+                identity.AddClaim(new Claim(ClaimTypes.Name, staff.Email));
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
+                
                 return RedirectToAction(nameof(Admin), new {email = staff.Email});
             }
             return View();
         }
 
+        [Authorize]
         public IActionResult Logout()
         {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Index));
         }
 
@@ -381,10 +394,11 @@ namespace AITResearchSystem.Controllers
                     ModelState.AddModelError("OptionCheckboxAnswers", "Max of 2 newspapers");
                 }
 
-                if (model.OptionCheckboxAnswers.All(answer => !answer.IsSelected))
-                {
-                    ModelState.AddModelError("OptionCheckboxAnswers", "one option is required");
-                }
+                // Model State to have at least one checkbox marked
+                //if (model.OptionCheckboxAnswers.All(answer => !answer.IsSelected))
+                //{
+                //    ModelState.AddModelError("OptionCheckboxAnswers", "one option is required");
+                //}
             }
         }
 
@@ -435,6 +449,7 @@ namespace AITResearchSystem.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Admin(string email)
         {
             ViewData["User"] = email;

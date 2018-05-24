@@ -10,6 +10,8 @@ using AITResearchSystem.Services;
 using AITResearchSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace AITResearchSystem
 {
@@ -33,6 +35,17 @@ namespace AITResearchSystem
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/Home/Login");
+                options.AccessDeniedPath = new PathString("/Home/End");
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
@@ -72,6 +85,8 @@ namespace AITResearchSystem
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
 
             app.UseStaticFiles();
 
