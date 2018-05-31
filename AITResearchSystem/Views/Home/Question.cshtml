@@ -10,19 +10,13 @@
             <h2 class="question-background">@Model.QuestionNumber</h2>
             <input asp-for="@Model.QuestionSequence" value="@Model.QuestionSequence" type="hidden" />
             <p id="question-text">@Model.QuestionText<br></p>
-            @if (@Model.Order == 4)
+            @if (@Model.Type == "text")
             {
-                <span asp-validation-for="Suburb" class="text-danger"></span>
-                <input asp-for="Suburb" class="form-control col-md-6" type="text" placeholder="Suburb">
-                <span asp-validation-for="Postcode" class="text-danger"></span>
-                <input asp-for="Postcode" class="form-control col-md-6" type="text" placeholder="Postcode" />
+                <span asp-validation-for="TextAnswer" class="text-danger"></span>
+                <input asp-for="TextAnswer" class="form-control col-md-6" type="text">
             }
-            @if (@Model.Order == 5)
-            {
-                <span asp-validation-for="Email" class="text-danger"></span>
-                <input asp-for="Email" class="form-control col-md-6" type="text" placeholder="Email">
-            }
-            @if (@Model.Order >= 1 && @Model.Order <= 3)
+
+            @if (@Model.Type == "radio")
             {
                 <span asp-validation-for="OptionRadioAnswer" class="text-danger"></span>
                 <ul>
@@ -32,28 +26,28 @@
                     }
                 </ul>
             }
-            @if (@Model.Order >= 6)
+            @if (@Model.Type == "checkbox")
             {
                 <span asp-validation-for="OptionCheckboxAnswers" class="text-danger"></span>
                 <ul>
                     @for (var i = 0; i < Model.Options.Count; i++)
                     {
-                    <li>
-                        <input asp-for=@Model.OptionCheckboxAnswers[i].IsSelected type="checkbox">@Model.Options[i].Text
-                        <input asp-for="@Model.OptionCheckboxAnswers[i].Id" value="@Model.Options[i].Id" type="hidden" />
-                        <input asp-for="@Model.OptionCheckboxAnswers[i].NextQuestion" value="@Model.Options[i].NextQuestion" type="hidden" />
-                    </li>
+                        <li>
+                            <input asp-for="@Model.OptionCheckboxAnswers[i].IsSelected" type="checkbox">@Model.Options[i].Text
+                            <input asp-for="@Model.OptionCheckboxAnswers[i].Id" value="@Model.Options[i].Id" type="hidden" />
+                            <input asp-for="@Model.OptionCheckboxAnswers[i].NextQuestion" value="@Model.Options[i].NextQuestion" type="hidden" />
+                        </li>
                     }
                 </ul>
             }
             <p id="start-register-buttons">
                 @if (@Model.Order != 1)
                 {
-                    <button asp-controller="Home" asp-action="PreviousQuestion" class="btn btn-default btn-lg btn-previous">
+                    <button asp-controller="Home" asp-action="PreviousQuestion" class="btn btn-default btn-lg btn-previous btn-danger">
                         <i class="glyphicon glyphicon-arrow-left"></i>Previous
                     </button>
                 }
-                <button class="btn btn-default btn-lg btn-next" type="submit">
+                <button class="btn btn-default btn-lg btn-next btn-success" type="submit">
                     Next
                     <i class="glyphicon glyphicon-arrow-right"></i>
                 </button>

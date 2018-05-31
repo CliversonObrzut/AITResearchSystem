@@ -12,12 +12,49 @@ namespace AITResearchSystem.Services
         private const string SessionKeyAnswers = "_answers";
         private const string SessionKeyFollowUpQuestions = "_followUpQuestions";
         private const string SessionKeySessionQuestions = "_sessionQuestions";
+        private const string SessionKeyQuestionnaireDone = "_questionnaireDone";
+        private const string SessionKeyAdminEmail = "_adminEmail";
+        private const string SessionKeyIsFollowUpQuestion = "_isFollowUpQuestion";
 
         private readonly IHttpContextAccessor _accessor;
 
         public SessionService(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
+        }
+
+        public void SetIsFollowUpQuestion(string value)
+        {
+            _accessor.HttpContext.Session.SetString(SessionKeyIsFollowUpQuestion,value);
+        }
+
+        public string GetIsFollowUpQuestion()
+        {
+            return _accessor.HttpContext.Session.GetString(SessionKeyIsFollowUpQuestion);
+        }
+
+        public void SetAdminEmail(string email)
+        {
+            _accessor.HttpContext.Session.SetString(SessionKeyAdminEmail,email);
+        }
+
+        public string GetAdminEmail()
+        {
+            var value = _accessor.HttpContext.Session.GetString(SessionKeyAdminEmail);
+            var done = value ?? "session expired";
+            return done;
+        }
+
+        public void SetQuestionnaireDone(bool done)
+        {
+            _accessor.HttpContext.Session.SetString(SessionKeyQuestionnaireDone,JsonConvert.SerializeObject(done));
+        }
+
+        public string GetQuestionnaireDone()
+        {
+            var value = _accessor.HttpContext.Session.GetString((SessionKeyQuestionnaireDone));
+            var done = value != null ? JsonConvert.DeserializeObject<string>(value) : null;
+            return done;
         }
 
         public void SetRespondent(Respondent resp)
@@ -95,6 +132,13 @@ namespace AITResearchSystem.Services
             int size = sessionQuestions.Count;
             sessionQuestions.RemoveAt(size-1);
             _accessor.HttpContext.Session.SetString(SessionKeySessionQuestions, JsonConvert.SerializeObject(sessionQuestions));
+        }
+
+        public Question GetPreviousQuestionByPosition(int backwardPosition)
+        {
+            List<Question> sessionQuestions = GetSessionQuestions();
+            int size = sessionQuestions.Count;
+            return sessionQuestions[size - backwardPosition];
         }
 
         public Question GetCurrentQuestion()

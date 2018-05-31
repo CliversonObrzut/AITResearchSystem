@@ -13,23 +13,24 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
-                @if (ViewData["Title"].ToString() != "Login" && ViewData["Title"].ToString() != "Register" && ViewData["Title"].ToString() != "End")
-                {
-                    <p class="text-nowrap navbar-text navbar-right actions">
-                        @if (ViewData["Title"].ToString() != "Welcome")
-                        {
-                            <label>@ViewData["User"]</label>
-                        }
-                        @if (ViewData["Title"].ToString() == "Welcome")
-                        {
-                            <a asp-controller="Home" asp-action="Login" class="btn btn-default action-button" role="button">Log In</a>
-                        }
-                        @if (ViewData["Title"].ToString() == "Admin")
-                        {
-                            <a asp-controller="Home" asp-action="Logout" class="btn btn-default action-button" role="button">Log Out</a>
-                        }
-                    </p>
-                }
+                <p class="text-nowrap navbar-text navbar-right actions">
+                    @if (ViewData["Title"].ToString() == "Question" || ViewData["Title"].ToString() == "Admin")
+                    {
+                        <label>@ViewData["User"]</label>
+                    }
+                    @if (ViewData["Title"].ToString() == "Welcome")
+                    {
+                        <a asp-controller="Home" asp-action="Login" class="btn btn-default action-button" role="button">Log In</a>
+                    }
+                    @if (ViewData["Title"].ToString() == "Admin")
+                    {
+                        <a asp-controller="Home" asp-action="Logout" class="btn btn-default action-button" role="button">Log Out</a>
+                    }
+                    @if (ViewData["Title"].ToString() == "Login" || ViewData["Title"].ToString() == "Register" || ViewData["Title"].ToString() == "End")
+                    {
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-default action-button" role="button">Home</a>
+                    }
+                </p>
             </div>
         </div>
     </nav>

@@ -18,7 +18,10 @@ namespace AITResearchSystem.Services
 
         public Question GetById(int id)
         {
-            return _context.Questions.FirstOrDefault(answer => answer.Id == id);
+            return _context.Questions
+                .Include(qt => qt.QuestionType)
+                .Include(qo => qo.QuestionOptions)
+                .FirstOrDefault(question => question.Id == id);
         }
 
         public IEnumerable<Question> GetAll()
@@ -32,6 +35,11 @@ namespace AITResearchSystem.Services
                 .Include(qt => qt.QuestionType)
                 .Include(qo => qo.QuestionOptions)
                 .FirstOrDefault(question => question.Order == order);
+        }
+
+        public bool IsNextQuestionAvailable(int order)
+        {
+            return _context.Questions.Any(q => q.Order == order);
         }
     }
 }

@@ -196,112 +196,112 @@ namespace AITResearchSystem.HookIn
                 new Answer
                 {
                     Text = "2095",
-                    QuestionId = 4,
-                    OptionId = null,
-                    RespondentId = 1
-                },
-                new Answer
-                {
-                    Text = "tony.abbott@gmail.com",
                     QuestionId = 5,
                     OptionId = null,
                     RespondentId = 1
                 },
                 new Answer
                 {
-                    Text = "",
+                    Text = "tony.abbott@gmail.com",
                     QuestionId = 6,
+                    OptionId = null,
+                    RespondentId = 1
+                },
+                new Answer
+                {
+                    Text = "",
+                    QuestionId = 7,
                     OptionId = 21,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 6,
+                    QuestionId = 7,
                     OptionId = 24,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 8,
+                    QuestionId = 9,
                     OptionId = 36,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 8,
+                    QuestionId = 9,
                     OptionId = 39,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 7,
+                    QuestionId = 8,
                     OptionId = 27,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 7,
+                    QuestionId = 8,
                     OptionId = 31,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 7,
+                    QuestionId = 8,
                     OptionId = 34,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 9,
+                    QuestionId = 10,
                     OptionId = 41,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 9,
+                    QuestionId = 10,
                     OptionId = 42,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 9,
+                    QuestionId = 10,
                     OptionId = 46,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 10,
+                    QuestionId = 11,
                     OptionId = 47,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 10,
+                    QuestionId = 11,
                     OptionId = 48,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 10,
+                    QuestionId = 11,
                     OptionId = 49,
                     RespondentId = 1
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 10,
+                    QuestionId = 11,
                     OptionId = 50,
                     RespondentId = 1
                 },
@@ -338,91 +338,91 @@ namespace AITResearchSystem.HookIn
                 new Answer
                 {
                     Text = "4007",
-                    QuestionId = 4,
-                    OptionId = null,
-                    RespondentId = 2
-                },
-                new Answer
-                {
-                    Text = "a.smith@gmail.com",
                     QuestionId = 5,
                     OptionId = null,
                     RespondentId = 2
                 },
                 new Answer
                 {
-                    Text = "",
+                    Text = "a.smith@gmail.com",
                     QuestionId = 6,
-                    OptionId = 20,
-                    RespondentId = 2
-                },
-                new Answer
-                {
-                    Text = "",
-                    QuestionId = 6,
-                    OptionId = 22,
-                    RespondentId = 2
-                },
-                new Answer
-                {
-                    Text = "",
-                    QuestionId = 8,
-                    OptionId = 36,
-                    RespondentId = 2
-                },
-                new Answer
-                {
-                    Text = "",
-                    QuestionId = 8,
-                    OptionId = 37,
+                    OptionId = null,
                     RespondentId = 2
                 },
                 new Answer
                 {
                     Text = "",
                     QuestionId = 7,
+                    OptionId = 20,
+                    RespondentId = 2
+                },
+                new Answer
+                {
+                    Text = "",
+                    QuestionId = 7,
+                    OptionId = 22,
+                    RespondentId = 2
+                },
+                new Answer
+                {
+                    Text = "",
+                    QuestionId = 9,
+                    OptionId = 36,
+                    RespondentId = 2
+                },
+                new Answer
+                {
+                    Text = "",
+                    QuestionId = 9,
+                    OptionId = 37,
+                    RespondentId = 2
+                },
+                new Answer
+                {
+                    Text = "",
+                    QuestionId = 8,
                     OptionId = 27,
                     RespondentId = 2
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 9,
+                    QuestionId = 10,
                     OptionId = 43,
                     RespondentId = 2
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 9,
+                    QuestionId = 10,
                     OptionId = 44,
                     RespondentId = 2
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 9,
+                    QuestionId = 10,
                     OptionId = 45,
                     RespondentId = 2
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 11,
+                    QuestionId = 12,
                     OptionId = 56,
                     RespondentId = 2
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 11,
+                    QuestionId = 12,
                     OptionId = 58,
                     RespondentId = 2
                 },
                 new Answer
                 {
                     Text = "",
-                    QuestionId = 9,
+                    QuestionId = 10,
                     OptionId = 59,
                     RespondentId = 2
                 },
@@ -459,8 +459,8 @@ namespace AITResearchSystem.HookIn
                 },
                 new Respondent // id = 2
                 {
-                    GivenNames = "Anonymous",
-                    LastName = "",
+                    GivenNames = "",
+                    LastName = "Anonymous",
                     DateOfBirth = new DateTime(),
                     PhoneNumber = "",
                     IpAddress = "192.168.251.198",
@@ -607,100 +607,100 @@ namespace AITResearchSystem.HookIn
                 new Option
                 {
                     Text = "Commonwealth",
-                    NextQuestion = 8,
-                    QuestionId = 6
+                    NextQuestion = 9, // id of the follow up question
+                    QuestionId = 7
                 },
                 new Option
                 {
                     Text = "ANZ",
-                    NextQuestion = 8,
-                    QuestionId = 6
+                    NextQuestion = 9, // id of the follow up question
+                    QuestionId = 7
                 },
                 new Option
                 {
                     Text = "Westpac",
-                    NextQuestion = 8,
-                    QuestionId = 6
+                    NextQuestion = 9, // id of the follow up question
+                    QuestionId = 7
                 },
                 new Option
                 {
                     Text = "Bendigo",
                     NextQuestion = null,
-                    QuestionId = 6
+                    QuestionId = 7
                 },
                 new Option
                 {
                     Text = "St George",
                     NextQuestion = null,
-                    QuestionId = 6
+                    QuestionId = 7
                 },
                 new Option
                 {
                     Text = "Suncorp",
                     NextQuestion = null,
-                    QuestionId = 6
+                    QuestionId = 7
                 },
 
                 // Australian newspapers (26 to 35)
                 new Option
                 {
                     Text = "Herald Sun",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Daily/Sunday Telegraph",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Courier Mail",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "West Australian",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Advertiser",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Sydney Morning Herald",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Age",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Australian",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Canberra Times",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
                 new Option
                 {
                     Text = "Northern Territory News",
-                    NextQuestion = 9,
-                    QuestionId = 7
+                    NextQuestion = 10, // id of the follow up question
+                    QuestionId = 8
                 },
 
                 // Bank Services (36 to 39)
@@ -708,25 +708,25 @@ namespace AITResearchSystem.HookIn
                 {
                     Text = "Internet Banking",
                     NextQuestion = null,
-                    QuestionId = 8
+                    QuestionId = 9
                 },
                 new Option
                 {
                     Text = "Home Loan",
                     NextQuestion = null,
-                    QuestionId = 8
+                    QuestionId = 9
                 },
                 new Option
                 {
                     Text = "Credit Card",
                     NextQuestion = null,
-                    QuestionId = 8
+                    QuestionId = 9
                 },
                 new Option
                 {
                     Text = "Share Investment",
                     NextQuestion = null,
-                    QuestionId = 8
+                    QuestionId = 9
                 },
 
                 // Newspaper Sections (40 to 46)
@@ -734,43 +734,43 @@ namespace AITResearchSystem.HookIn
                 {
                     Text = "Property",
                     NextQuestion = null,
-                    QuestionId = 9
+                    QuestionId = 10
                 },
                 new Option
                 {
                     Text = "Sport",
-                    NextQuestion = 10,
-                    QuestionId = 9
+                    NextQuestion = 11, // id of the follow up question
+                    QuestionId = 10
                 },
                 new Option
                 {
                     Text = "Financial",
                     NextQuestion = null,
-                    QuestionId = 9
+                    QuestionId = 10
                 },
                 new Option
                 {
                     Text = "Entertainment",
                     NextQuestion = null,
-                    QuestionId = 9
+                    QuestionId = 10
                 },
                 new Option
                 {
                     Text = "Lifestyle",
                     NextQuestion = null,
-                    QuestionId = 9
+                    QuestionId = 10
                 },
                 new Option
                 {
                     Text = "Travel",
-                    NextQuestion = 11,
-                    QuestionId = 9
+                    NextQuestion = 12, // id of the follow up question
+                    QuestionId = 10
                 },
                 new Option
                 {
                     Text = "Politics",
                     NextQuestion = null,
-                    QuestionId = 9
+                    QuestionId = 10
                 },
 
                 // Newspaper sports section (47 to 54)
@@ -778,49 +778,49 @@ namespace AITResearchSystem.HookIn
                 {
                     Text = "AFL",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
                 new Option
                 {
                     Text = "Rugby",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
                 new Option
                 {
                     Text = "Football",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
                 new Option
                 {
                     Text = "Cricket",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
                 new Option
                 {
                     Text = "Racing",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
                 new Option
                 {
                     Text = "Motorsport",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
                 new Option
                 {
                     Text = "Basketball",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
                 new Option
                 {
                     Text = "Tennis",
                     NextQuestion = null,
-                    QuestionId = 10
+                    QuestionId = 11
                 },
 
                 // Newspaper Travel section (55 to 62)
@@ -828,49 +828,49 @@ namespace AITResearchSystem.HookIn
                 {
                     Text = "Australia",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 },
                 new Option
                 {
                     Text = "Europe",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 },
                 new Option
                 {
                     Text = "Pacific",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 },
                 new Option
                 {
                     Text = "North America",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 },
                 new Option
                 {
                     Text = "South America",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 },
                 new Option
                 {
                     Text = "Asia",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 },
                 new Option
                 {
                     Text = "Middle East",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 },
                 new Option
                 {
                     Text = "Africa",
                     NextQuestion = null,
-                    QuestionId = 11
+                    QuestionId = 12
                 }
             };
             try
@@ -914,50 +914,56 @@ namespace AITResearchSystem.HookIn
                 },
                 new Question
                 {
-                    Text = "What is your Home Suburb and Post Code?", // id = 4
+                    Text = "What is your Home Suburb?", // id = 4
                     Order = 4,
                     QuestionTypeId = 1 // text
                 },
                 new Question
                 {
-                    Text = "What is your email address?", // id = 5
+                    Text = "What is your Postcode?", // id = 5
                     Order = 5,
                     QuestionTypeId = 1 // text
                 },
                 new Question
                 {
-                    Text = "What bank(s) do you use? (max of 4)", // id = 6
+                    Text = "What is your email address?", // id = 6
                     Order = 6,
-                    QuestionTypeId = 2 // checkbox
+                    QuestionTypeId = 1 // text
                 },
                 new Question
                 {
-                    Text = "What newspaper(s) do you usually read? (max of 2)", // id = 7
+                    Text = "What bank(s) do you use? (max of 4)", // id = 7
                     Order = 7,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
-                    Text = "What bank service(s) do you use?", // id = 8
+                    Text = "What newspaper(s) do you usually read? (max of 2)", // id = 8
                     Order = 8,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
-                    Text = "In the newspaper, what section(s) are you most interested?", // id = 9
-                    Order = 9,
+                    Text = "What bank service(s) do you use?", // id = 9
+                    Order = null,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
-                    Text = "About what sports do you most read in the sports section?", // id = 10
-                    Order = 10,
+                    Text = "In the newspaper, what section(s) are you most interested?", // id = 10
+                    Order = null,
                     QuestionTypeId = 2 // checkbox
                 },
                 new Question
                 {
-                    Text = "About what places do you like to read in the travel section?", // id = 11
-                    Order = 11,
+                    Text = "About what sports do you most read in the sports section?", // id = 11
+                    Order = null,
+                    QuestionTypeId = 2 // checkbox
+                },
+                new Question
+                {
+                    Text = "About what places do you like to read in the travel section?", // id = 12
+                    Order = null,
                     QuestionTypeId = 2 // checkbox
                 }
             };

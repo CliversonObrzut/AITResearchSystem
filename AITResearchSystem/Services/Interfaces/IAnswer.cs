@@ -10,9 +10,7 @@ namespace AITResearchSystem.Services.Interfaces
         Answer Get(int id);
         void Add(Answer answer);
         void AddRange(List<Answer> answers);
-        IEnumerable<Answer> FilterByGenre(string genre);
-        IEnumerable<Answer> FilterByAgeRange(string ageRange);
-        IEnumerable<Answer> FilterByState(string state);
-        IEnumerable<Answer> Search(string query);
+        IEnumerable<Answer> FilterByOptionId(int optionId);
+        IEnumerable<Answer> Search(string text);
     }
 }

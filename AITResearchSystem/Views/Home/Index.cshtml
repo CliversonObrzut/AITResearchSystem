@@ -17,13 +17,13 @@
         <p id="start-register-buttons">
             @if ((string)ViewData["Session"] == "true")
             {
-                <a asp-controller="Home" asp-action="Restart" class="btn btn-default btn-lg" role="button">Restart</a>
-                <a asp-controller="Home" asp-action="Continue" class="btn btn-default btn-lg" role="button">Continue</a>
+                <a asp-controller="Home" asp-action="Restart" class="btn btn-default btn-lg btn-primary" role="button">Restart</a>
+                <a asp-controller="Home" asp-action="Continue" class="btn btn-default btn-lg btn-success" role="button">Continue</a>
             }
             @if ((string)ViewData["Session"] == "false")
             {
-                <a asp-controller="Home" asp-action="StartAnonymously" class="btn btn-default btn-lg" role="button">Answer Anonymously</a>
-                <a asp-controller="Home" asp-action="Register" class="btn btn-default btn-lg" role="button">Register First</a>
+                <a asp-controller="Home" asp-action="StartAnonymously" class="btn btn-default btn-lg btn-primary" role="button">Answer Anonymously</a>
+                <a asp-controller="Home" asp-action="Register" class="btn btn-default btn-lg btn-success" role="button">Register First</a>
             }
 
         </p>

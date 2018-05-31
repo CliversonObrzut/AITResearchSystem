@@ -1,0 +1,88 @@
+﻿@model List<TableRowAnswer>
+
+<div class="table-responsive col-md-12 PaddingTop20">
+    <table id="thetable" class="table table-striped">
+        <thead>
+            <tr>
+                <th><label asp-for="@Model[0].LastName"></label></th>
+                <th><label asp-for="@Model[0].GivenNames"></label></th>
+                <th><label asp-for="@Model[0].Gender"></label></th>
+                <th><label asp-for="@Model[0].AgeRange"></label></th>
+                <th><label asp-for="@Model[0].State"></label></th>
+                <th><label asp-for="@Model[0].Suburb"></label></th>
+                <th><label asp-for="@Model[0].Postcode"></label></th>
+                <th><label asp-for="@Model[0].PhoneNumber"></label></th>
+                <th><label asp-for="@Model[0].Email"></label></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var answer in @Model)
+            {
+                <tr>
+                    <td>@answer.LastName</td>
+                    <td>@answer.GivenNames</td>
+                    <td>@answer.Gender</td>
+                    <td>@answer.AgeRange</td>
+                    <td>@answer.State</td>
+                    <td>@answer.Suburb</td>
+                    <td>@answer.Postcode</td>
+                    <td>@answer.PhoneNumber</td>
+                    <td>@answer.Email</td>
+                </tr>
+                <tr name="tr-hidden" value="">
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <label asp-for="@answer.TableRowExpanded.Banks"></label>
+                        @foreach (var bank in answer.TableRowExpanded.Banks)
+                        {
+                            <br />
+                            @bank.Text
+                        }
+                    </td>
+                    <td>
+                        <label asp-for="@answer.TableRowExpanded.BankServices"></label>
+                        @foreach (var bankService in answer.TableRowExpanded.BankServices)
+                        {
+                            <br />
+                            @bankService.Text
+                        }
+                    </td>
+                    <td>
+                        <label asp-for="@answer.TableRowExpanded.Newspapers"></label>
+                        @foreach (var newspaper in answer.TableRowExpanded.Newspapers)
+                        {
+                            <br />
+                            @newspaper.Text
+                        }
+                    </td>
+                    <td>
+                        <label asp-for="@answer.TableRowExpanded.NewspaperSections"></label>
+                        @foreach (var newspaperSection in answer.TableRowExpanded.NewspaperSections)
+                        {
+                            <br />
+                            @newspaperSection.Text
+                        }
+                    </td>
+                    <td>
+                        <label asp-for="@answer.TableRowExpanded.SportsSection"></label>
+                        @foreach (var sport in answer.TableRowExpanded.SportsSection)
+                        {
+                            <br />
+                            @sport.Text
+                        }
+                    </td>
+                    <td>
+                        <label asp-for="@answer.TableRowExpanded.TravelsSection"></label>
+                        @foreach (var place in answer.TableRowExpanded.TravelsSection)
+                        {
+                            <br />
+                            @place.Text
+                        }
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

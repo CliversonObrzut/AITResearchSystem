@@ -19,13 +19,7 @@ namespace AITResearchSystem.ViewModels
         public List<CheckboxViewModel> OptionCheckboxAnswers { get; set; }
 
         [StringLength(255, ErrorMessage = "Limit is 255 characteres")]
-        public string Suburb { get; set; }
-
-        [StringLength(255, ErrorMessage = "Limit is 255 characteres")]
-        public string Postcode { get; set; }
-
-        [StringLength(255, ErrorMessage = "Limit is 255 characteres")]
-        public string Email { get; set; }
+        public string TextAnswer { get; set; }
 
         public List<Option> Options { get; set; }
 

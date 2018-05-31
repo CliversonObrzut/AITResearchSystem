@@ -8,5 +8,6 @@ namespace AITResearchSystem.Services.Interfaces
         IEnumerable<Question> GetAll();
         Question GetById(int id);
         Question GetByOrder(int order);
+        bool IsNextQuestionAvailable(int order);
     }
 }

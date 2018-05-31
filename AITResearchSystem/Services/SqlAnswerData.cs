@@ -5,6 +5,7 @@ using System.Linq;
 using AITResearchSystem.Data;
 using AITResearchSystem.Data.Models;
 using AITResearchSystem.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AITResearchSystem.Services
 {
@@ -42,16 +43,23 @@ namespace AITResearchSystem.Services
             }
         }
 
-        public IEnumerable<Answer> FilterByAgeRange(string ageRange)
+        public IEnumerable<Answer> FilterByOptionId(int optionId)
         {
-            return _context.Answers.Where(answer => answer.Option.Text == ageRange)
-                .OrderBy(answer => answer.Respondent.LastName);
+            return _context.Answers
+                .Include(o => o.Option)
+                .Where(answer => answer.Option.Id == optionId);
         }
 
-        public IEnumerable<Answer> FilterByGenre(string genre)
+        public IEnumerable<Answer> Search(string text)
         {
-            return _context.Answers.Where(answer => answer.Option.Text == genre)
-                .OrderBy(answer => answer.Respondent.LastName);
+            return _context.Answers
+                .Include(r => r.Respondent)
+                .Include(o => o.Option)
+                .Where(a => a.Text.Contains(text)
+                         || a.Option.Text.Contains(text)
+                         || a.Respondent.LastName.Contains(text)
+                         || a.Respondent.GivenNames.Contains(text)
+                         || a.Respondent.PhoneNumber.Contains(text));
         }
 
         public IEnumerable<Answer> FilterByState(string state)
@@ -70,10 +78,10 @@ namespace AITResearchSystem.Services
             return _context.Answers.ToList().OrderBy(answer => answer.Respondent.LastName);
         }
 
-        public IEnumerable<Answer> Search(string query)
-        {
-            // TODO implement Search Function
-            return null;
-        }
+        //public IEnumerable<Answer> Search(string query)
+        //{
+        //    // TODO implement Search Function
+        //    return null;
+        //}
     }
 }
