@@ -563,7 +563,7 @@ namespace AITResearchSystem.Controllers
                     }
                 }
                 _session.SetFilteredRespondentsId(matchedRespondentsId);
-                return RedirectToAction(nameof(Admin), new { filtered = 1});
+                return RedirectToAction(nameof(Admin), new { filtered = 1 });
             }
 
             return RedirectToAction(nameof(Admin));
@@ -581,20 +581,67 @@ namespace AITResearchSystem.Controllers
         {
             if (ModelState.IsValid && model.SelectedFilters.Any(option => option != 0))
             {
-                List<Answer> matchedAnswers = new List<Answer>();
+                List<Answer> filterOne = new List<Answer>();
+                List<Answer> filterTwo = new List<Answer>();
+                List<Answer> filterThree = new List<Answer>();
+                bool matchCondition = true;
                 foreach (var option in model.SelectedFilters)
                 {
                     if (option != 0)
                     {
-                        var tempAnswers = new List<Answer>();
                         var filteredAnswers = _answerData.FilterByOptionId(option).ToList();
-                        if (matchedAnswers.Count == 0)
+                        if (filteredAnswers.Count > 0)
                         {
-                            matchedAnswers = filteredAnswers;
+                            if (filteredAnswers[0].QuestionId == 1)
+                            {
+                                filterOne.AddRange(filteredAnswers);
+                            }
+                            else if (filteredAnswers[0].QuestionId == 2)
+                            {
+                                filterTwo.AddRange(filteredAnswers);
+                            }
+                            else
+                            {
+                                filterThree.AddRange(filteredAnswers);
+                            }
                         }
                         else
                         {
-                            foreach (var filteredAnswer in filteredAnswers)
+                            matchCondition = false;
+                        }
+                    }
+                }
+
+                List<Answer> matchedAnswers = new List<Answer>();
+                if (matchCondition)
+                {
+                    matchedAnswers = filterOne;
+                    if (matchedAnswers.Count != 0)
+                    {
+                        if (filterTwo.Count != 0)
+                        {
+                            List<Answer> tempAnswers = new List<Answer>();
+                            foreach (var filteredAnswer in filterTwo)
+                            {
+                                if (matchedAnswers.Any(a => a.RespondentId == filteredAnswer.RespondentId))
+                                {
+                                    tempAnswers.Add(filteredAnswer);
+                                }
+                            }
+                            matchedAnswers = tempAnswers;
+                        }
+                    }
+                    else
+                    {
+                        matchedAnswers = filterTwo;
+                    }
+
+                    if (matchedAnswers.Count != 0)
+                    {
+                        if (filterThree.Count != 0)
+                        {
+                            List<Answer> tempAnswers = new List<Answer>();
+                            foreach (var filteredAnswer in filterThree)
                             {
                                 if (matchedAnswers.Any(a => a.RespondentId == filteredAnswer.RespondentId))
                                 {
@@ -605,7 +652,12 @@ namespace AITResearchSystem.Controllers
                             matchedAnswers = tempAnswers;
                         }
                     }
+                    else
+                    {
+                        matchedAnswers = filterThree;
+                    }
                 }
+
 
                 List<int> matchedRespondentsId = new List<int>();
                 foreach (var answer in matchedAnswers)
