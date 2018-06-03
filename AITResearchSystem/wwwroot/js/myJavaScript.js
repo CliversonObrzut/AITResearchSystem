@@ -22,33 +22,23 @@ $(document).ready(function () {
     fixFooter();
 });
 
-$(document).bind(function () {
-    fixFooter();
-});
 
 // when click in a visible row it display the second
 // row of the pair with more information about the 
-// respondent answers
+// respondent answers in Admin page
 $("#thetable tbody tr:even").on('click',
     function () {
         console.log("clicked in a row");
-        var row1 = $(this).closest('tr');
         var row2 = $(this).closest('tr').next('tr');
         console.log(row2.index());
         if ($(row2).attr("value") === "false") {
             console.log("true");
             $(row2).css("display", "");
-            //$(row2).css("background", "#0078d7");
-            //$(row1).css("background", "#0078d7");
-            //$(row2).css("color", "#ffffff");
-            //$(row1).css("color", "#ffffff");
             $(row2).attr("value","true");
         } else {
             console.log("false");
             $(row2).css("display", "none");
             $(row2).attr("value", "false");
-            //$(row1).css("background", "");
-            //$(row1).css("color", "");
         }
     });
 

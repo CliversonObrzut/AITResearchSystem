@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @* title will receive the name defined in each view using the data dictionary resource ViewData*@
     <title>@ViewData["Title"] Page - AITResearchSystem</title>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/fonts/font-awesome.min.css">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="~/css/styles.min.css">
 </head>
 <body>
+    @* Partial view for navbar and footer will be loaded in all pages *@
     @Html.Partial("~/Views/Shared/_Navbar.cshtml")
     @RenderBody()
     @Html.Partial("~/Views/Shared/_Footer.cshtml")

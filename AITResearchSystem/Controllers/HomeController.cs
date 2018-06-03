@@ -521,8 +521,12 @@ namespace AITResearchSystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Filter(AdminViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Admin));
+                // TODO implement Filter logic
+            }
             return RedirectToAction(nameof(Admin));
-            // TODO implement Filter logic
         }
 
         [Authorize]

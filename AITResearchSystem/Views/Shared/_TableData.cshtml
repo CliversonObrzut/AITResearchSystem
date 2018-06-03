@@ -1,5 +1,5 @@
 ﻿@model List<TableRowAnswer>
-
+@* Table to display the respondent answers in the Admin page *@
 <div class="table-responsive col-md-12 PaddingTop20">
     <table id="thetable" class="table table-striped">
         <thead>
@@ -16,6 +16,8 @@
             </tr>
         </thead>
         <tbody>
+            @* For each respondent in the model it creates two table rows *@
+            @* The first one is displayed with respondent personal information *@
             @foreach (var answer in @Model)
             {
                 <tr>
@@ -29,6 +31,8 @@
                     <td>@answer.PhoneNumber</td>
                     <td>@answer.Email</td>
                 </tr>
+                @* The second one has answers about banks and newspapers preferences *@
+                @* It is initially hidden and displayed when the previous row is clicked on *@
                 <tr name="tr-hidden" value="">
                     <td></td>
                     <td></td>

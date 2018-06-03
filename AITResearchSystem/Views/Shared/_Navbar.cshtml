@@ -2,6 +2,7 @@
     <nav class="navbar navbar-default navigation-clean-button">
         <div class="container">
             <div class="navbar-header">
+                @* Linkk to Home page when clicked on the brand in the navbar *@
                 <a asp-controller="Home" asp-action="Index" asp- class="navbar-brand">
                     <img src="~/images/AITResearch_logo.png">
                 </a>
@@ -14,20 +15,25 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <p class="text-nowrap navbar-text navbar-right actions">
+                    @* specify which elemtns to load in the navbar based on the current page loaded*@
                     @if (ViewData["Title"].ToString() == "Question" || ViewData["Title"].ToString() == "Admin")
                     {
+                        // label to display user information"
                         <label>@ViewData["User"]</label>
                     }
                     @if (ViewData["Title"].ToString() == "Welcome")
                     {
+                        // login button
                         <a asp-controller="Home" asp-action="Login" class="btn btn-default action-button" role="button">Log In</a>
                     }
                     @if (ViewData["Title"].ToString() == "Admin")
                     {
+                        // logout button
                         <a asp-controller="Home" asp-action="Logout" class="btn btn-default action-button" role="button">Log Out</a>
                     }
                     @if (ViewData["Title"].ToString() == "Login" || ViewData["Title"].ToString() == "Register" || ViewData["Title"].ToString() == "End")
                     {
+                        // Home button
                         <a asp-controller="Home" asp-action="Index" class="btn btn-default action-button" role="button">Home</a>
                     }
                 </p>
