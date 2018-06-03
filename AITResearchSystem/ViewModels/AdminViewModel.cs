@@ -13,7 +13,7 @@ namespace AITResearchSystem.ViewModels
         [Display(Name = "States")]
         public List<Option> States { get; set; }
         public string SearchQuery { get; set; }
-        public int [] SelectedFilters { get; set; }
+        public int[] SelectedFilters { get; set; }
         public List<TableRowAnswer> Answers { get; set; }
     }
 

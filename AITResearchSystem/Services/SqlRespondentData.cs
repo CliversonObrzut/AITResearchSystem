@@ -16,12 +16,21 @@ namespace AITResearchSystem.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Returns from db all Respondents.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Respondent> GetAll()
         {
             return _context.Respondents
                 .Include(a => a.RespondentAnswers).ToList();
         }
 
+        /// <summary>
+        /// Returns from db a Respondent by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Respondent Get(int id)
         {
             return _context.Respondents
@@ -29,6 +38,10 @@ namespace AITResearchSystem.Services
                 .FirstOrDefault(user => user.Id == id);
         }
 
+        /// <summary>
+        /// Adds a Respondent to database.
+        /// </summary>
+        /// <param name="respondent"></param>
         public void Add(Respondent respondent)
         {
             _context.Respondents.Add(respondent);

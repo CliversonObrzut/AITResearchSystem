@@ -18,6 +18,7 @@ namespace AITResearchSystem.Controllers
 {
     public class HomeController : Controller
     {
+        // Injected all necessary services.
         private readonly SessionService _session;
         private readonly IpAddressService _ipService;
         private readonly IStaff _staffData;
@@ -44,6 +45,11 @@ namespace AITResearchSystem.Controllers
             _session = session;
         }
 
+        /// <summary>
+        /// Return the View Index
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Index()
         {
             if (_session.GetRespondent() != null)
@@ -53,17 +59,26 @@ namespace AITResearchSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Button Restart will redirect to Index page.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Restart()
         {
             _session.Clear();
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Button Continue will redirect to the last question in the current session.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Continue()
         {
             var question = _session.GetCurrentQuestion();
             _session.RemoveCurrentQuestion();
-            if (question.Order == null)
+            // follow up questions have order null
+            if (question.Order == null) // defines if the next question will be called by order or by id.
             {
                 _session.SetIsFollowUpQuestion("true");
                 return RedirectToAction(nameof(Question), new { nextQuestion = question.Id });
@@ -71,6 +86,10 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Question), new { nextQuestion = question.Order });
         }
 
+        /// <summary>
+        /// Returns the View Login passing StaffViewModel.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Login()
         {
@@ -78,6 +97,11 @@ namespace AITResearchSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Post method to authenticate staff and redirect do Admin Page
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(StaffViewModel model)
@@ -101,6 +125,10 @@ namespace AITResearchSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Button Logout redirects to Index page.
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Logout()
         {
@@ -109,6 +137,10 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Returns the View Register passing RegisterFirstViewModel.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Register()
         {
@@ -128,6 +160,12 @@ namespace AITResearchSystem.Controllers
 
         }
 
+        /// <summary>
+        /// Post method to store respondent information in session and
+        /// redirects to first question.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterFirstViewModel model)
@@ -152,6 +190,11 @@ namespace AITResearchSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Returns the Question View loading questions information from QuestionViewModel.
+        /// </summary>
+        /// <param name="nextQuestion"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Question(int nextQuestion)
         {
@@ -246,6 +289,11 @@ namespace AITResearchSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Post Method to receive questionnaire answers and store in session.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Question(QuestionViewModel model)
@@ -330,6 +378,11 @@ namespace AITResearchSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Check model state based in questionnaire rules.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="currentQuestion"></param>
         private void CheckExtraModelState(QuestionViewModel model, Question currentQuestion)
         {
             if (currentQuestion.QuestionType.Type == "radio")
@@ -364,6 +417,11 @@ namespace AITResearchSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// Determines which question to call next.
+        /// </summary>
+        /// <param name="currentQuestion"></param>
+        /// <returns></returns>
         private IActionResult CallNextQuestion(Question currentQuestion)
         {
             var followUpQuestions = _session.GetFollowUpQuestions();
@@ -402,6 +460,9 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Question), new { nextQuestion = followUpQuestionId });
         }
 
+        /// <summary>
+        /// Insert Respondent and Answers data into database. Clear the Session.
+        /// </summary>
         private void UpdateAnswersInDatabase()
         {
             Respondent respondent = _session.GetRespondent();
@@ -416,6 +477,10 @@ namespace AITResearchSystem.Controllers
             _answerData.AddRange(answers);
         }
 
+        /// <summary>
+        /// Returns the View End page.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult End()
         {
             // if trying to open End page trough URL it's going to redirect the user to Home Page
@@ -430,6 +495,11 @@ namespace AITResearchSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Returns the View Admin with the Filter options and Respondent Answers.
+        /// </summary>
+        /// <param name="filtered"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet]
         public IActionResult Admin(int filtered)
@@ -471,6 +541,11 @@ namespace AITResearchSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Returns the Answers that Contain the query string.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -494,6 +569,11 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Admin));
         }
 
+        /// <summary>
+        /// Returns the Answers that matches the options selected in the Filter.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -507,6 +587,10 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Admin));
         }
 
+        /// <summary>
+        /// Clear Search and Filters loading all Answers.
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -515,6 +599,11 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Admin));
         }
 
+        /// <summary>
+        /// Build the Answers table with the list of respondents passed.
+        /// </summary>
+        /// <param name="respondents"></param>
+        /// <returns></returns>
         private List<TableRowAnswer> LoadAnswerTable(List<Respondent> respondents)
         {
             List<TableRowAnswer> tableRowAnswers = new List<TableRowAnswer>();
@@ -602,11 +691,19 @@ namespace AITResearchSystem.Controllers
             return tableRowAnswers;
         }
 
+        /// <summary>
+        /// Error page for Production Environment.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        /// <summary>
+        /// Stores the anonymous respondent in session and Return the View Question
+        /// </summary>
+        /// <returns></returns>
         public IActionResult StartAnonymously()
         {
             if (_session.GetRespondent() != null)
@@ -636,6 +733,10 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Question), new { nextQuestion = 1 });
         }
 
+        /// <summary>
+        /// Returns the Question View displaying the previous question and answers.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult PreviousQuestion()
         {
             if (_session.GetRespondent() == null)

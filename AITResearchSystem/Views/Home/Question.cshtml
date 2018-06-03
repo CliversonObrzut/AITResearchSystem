@@ -10,6 +10,7 @@
             <h2 class="question-background">@Model.QuestionNumber</h2>
             <input asp-for="@Model.QuestionSequence" value="@Model.QuestionSequence" type="hidden" />
             <p id="question-text">@Model.QuestionText<br></p>
+
             @if (@Model.Type == "text")
             {
                 <span asp-validation-for="TextAnswer" class="text-danger"></span>
@@ -26,6 +27,7 @@
                     }
                 </ul>
             }
+
             @if (@Model.Type == "checkbox")
             {
                 <span asp-validation-for="OptionCheckboxAnswers" class="text-danger"></span>

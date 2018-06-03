@@ -14,6 +14,10 @@ namespace AITResearchSystem.Services
             _accessor = accessor;
         }
 
+        /// <summary>
+        /// Returns the IP Adress from user in string format
+        /// </summary>
+        /// <returns></returns>
         public string GetIpAddress()
         {
             string ipAddress;

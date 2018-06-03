@@ -10,6 +10,7 @@ namespace AITResearchSystem.Data
             
         }
 
+        // Set the tables Entity Framework will create in DB
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Option> Options { get; set; }
         public DbSet<Question> Questions { get; set; }

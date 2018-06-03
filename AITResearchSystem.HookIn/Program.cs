@@ -11,6 +11,8 @@ namespace AITResearchSystem.HookIn
     {
         private static AitResearchDbContext _context;
 
+        // Console application to seed initial data in database or clear all tables.
+        // Always clean first then seed data again or it will duplicate data.
         static void Main(/*string[] args*/)
         {
             _context = new AitResearchDbContext(CreateNewContextOptions());

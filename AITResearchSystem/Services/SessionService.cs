@@ -24,11 +24,19 @@ namespace AITResearchSystem.Services
             _accessor = accessor;
         }
 
+        /// <summary>
+        /// Set in session a list of int values representing repondent Ids 
+        /// </summary>
+        /// <param name="respondentsId"></param>
         public void SetFilteredRespondentsId(List<int> respondentsId)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyFilteredRespondents, JsonConvert.SerializeObject(respondentsId));
         }
 
+        /// <summary>
+        /// Returns a List of int representing respondent Ids stored in session
+        /// </summary>
+        /// <returns></returns>
         public List<int> GetFilteredRespondents()
         {
             var value = _accessor.HttpContext.Session.GetString(SessionKeyFilteredRespondents);
@@ -36,26 +44,47 @@ namespace AITResearchSystem.Services
             return done;
         }
 
+        /// <summary>
+        /// Clear in session the list of int values representing respondent ids
+        /// </summary>
         public void ClearFilteredRespondents()
         {
             SetFilteredRespondentsId(new List<int>());
         }
 
+        /// <summary>
+        /// Set in session a string of "true" or "false" to indicate
+        /// the next to be called is a follow up question
+        /// </summary>
+        /// <param name="value"></param>
         public void SetIsFollowUpQuestion(string value)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyIsFollowUpQuestion,value);
         }
 
+        /// <summary>
+        /// Return a string of "true" or "false" to indicate
+        /// if the current question is follow up or not
+        /// </summary>
+        /// <returns></returns>
         public string GetIsFollowUpQuestion()
         {
             return _accessor.HttpContext.Session.GetString(SessionKeyIsFollowUpQuestion);
         }
 
+        /// <summary>
+        /// Set in session the Admin email.
+        /// </summary>
+        /// <param name="email"></param>
         public void SetAdminEmail(string email)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyAdminEmail,email);
         }
 
+        /// <summary>
+        /// Returns the Admin email from session.
+        /// </summary>
+        /// <returns></returns>
         public string GetAdminEmail()
         {
             var value = _accessor.HttpContext.Session.GetString(SessionKeyAdminEmail);
@@ -63,11 +92,21 @@ namespace AITResearchSystem.Services
             return done;
         }
 
+        /// <summary>
+        /// Set in session a boolean indicating if the questionnaire
+        /// was complete or not
+        /// </summary>
+        /// <param name="done"></param>
         public void SetQuestionnaireDone(bool done)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyQuestionnaireDone,JsonConvert.SerializeObject(done));
         }
 
+        /// <summary>
+        /// Returns the boolean value indicating if the questionnaire
+        /// was complete or not
+        /// </summary>
+        /// <returns></returns>
         public string GetQuestionnaireDone()
         {
             var value = _accessor.HttpContext.Session.GetString((SessionKeyQuestionnaireDone));
@@ -75,11 +114,19 @@ namespace AITResearchSystem.Services
             return done;
         }
 
+        /// <summary>
+        /// Add the current respondent to session.
+        /// </summary>
+        /// <param name="resp"></param>
         public void SetRespondent(Respondent resp)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyRespondent, JsonConvert.SerializeObject(resp));
         }
 
+        /// <summary>
+        /// Return from session the current Respondent
+        /// </summary>
+        /// <returns></returns>
         public Respondent GetRespondent()
         {
             var value = _accessor.HttpContext.Session.GetString(SessionKeyRespondent);
@@ -87,6 +134,11 @@ namespace AITResearchSystem.Services
             return respondent;
         }
 
+        /// <summary>
+        /// Add a follow up question to the List of follow up questions
+        /// current in session
+        /// </summary>
+        /// <param name="question"></param>
         public void AddFollowUpQuestion(Question question)
         {
             List<Question> questions = GetFollowUpQuestions();
@@ -94,11 +146,19 @@ namespace AITResearchSystem.Services
             SetFollowUpQuestions(questions);
         }
 
+        /// <summary>
+        /// Set in session a list of follow up questions.
+        /// </summary>
+        /// <param name="questions"></param>
         public void SetFollowUpQuestions(List<Question> questions)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyFollowUpQuestions, JsonConvert.SerializeObject(questions));
         }
 
+        /// <summary>
+        /// Return the list of follow up questions stored in session.
+        /// </summary>
+        /// <returns></returns>
         public List<Question> GetFollowUpQuestions()
         {
             var value = _accessor.HttpContext.Session.GetString(SessionKeyFollowUpQuestions);
@@ -106,6 +166,11 @@ namespace AITResearchSystem.Services
             return followUpQuestions;
         }
 
+        /// <summary>
+        /// Add a list of answers to the current list of answers
+        /// stored in session.
+        /// </summary>
+        /// <param name="newAnswers"></param>
         public void AddNewAnswers(List<AnswerViewModel> newAnswers)
         {
             List<AnswerViewModel> answers = GetAnswers();
@@ -113,6 +178,10 @@ namespace AITResearchSystem.Services
             SetAnswers(answers);
         }
 
+        /// <summary>
+        /// Add one question to the current list of answers stored in session
+        /// </summary>
+        /// <param name="newAnswer"></param>
         public void AddNewAnswer(AnswerViewModel newAnswer)
         {
             List<AnswerViewModel> answers = GetAnswers();
@@ -120,11 +189,19 @@ namespace AITResearchSystem.Services
             SetAnswers(answers);
         }
 
+        /// <summary>
+        /// Set in session a list of answers
+        /// </summary>
+        /// <param name="answers"></param>
         public void SetAnswers(List<AnswerViewModel> answers)
         {
             _accessor.HttpContext.Session.SetString(SessionKeyAnswers, JsonConvert.SerializeObject(answers));
         }
 
+        /// <summary>
+        /// Return the list of answers stored in session.
+        /// </summary>
+        /// <returns></returns>
         public List<AnswerViewModel> GetAnswers()
         {
             var value = _accessor.HttpContext.Session.GetString(SessionKeyAnswers);
@@ -132,11 +209,19 @@ namespace AITResearchSystem.Services
             return answers;
         }
 
+        /// <summary>
+        /// Clear all the data stored in session.
+        /// </summary>
         public void Clear()
         {
             _accessor.HttpContext.Session.Clear();
         }
 
+        /// <summary>
+        /// Add one question to the current list of questions
+        /// stored in session.
+        /// </summary>
+        /// <param name="question"></param>
         public void AddQuestion(Question question)
         {
             List<Question> sessionQuestions = GetSessionQuestions();
@@ -144,6 +229,9 @@ namespace AITResearchSystem.Services
             _accessor.HttpContext.Session.SetString(SessionKeySessionQuestions, JsonConvert.SerializeObject(sessionQuestions));
         }
 
+        /// <summary>
+        /// Removes the current Question from the list of answered questions
+        /// </summary>
         public void RemoveCurrentQuestion()
         {
             List<Question> sessionQuestions = GetSessionQuestions();
@@ -152,6 +240,12 @@ namespace AITResearchSystem.Services
             _accessor.HttpContext.Session.SetString(SessionKeySessionQuestions, JsonConvert.SerializeObject(sessionQuestions));
         }
 
+        /// <summary>
+        /// Returns a question from the list of previous answered questions by
+        /// position in the list from the last to first.
+        /// </summary>
+        /// <param name="backwardPosition"></param>
+        /// <returns></returns>
         public Question GetPreviousQuestionByPosition(int backwardPosition)
         {
             List<Question> sessionQuestions = GetSessionQuestions();
@@ -159,6 +253,10 @@ namespace AITResearchSystem.Services
             return sessionQuestions[size - backwardPosition];
         }
 
+        /// <summary>
+        /// Returns the current question from the list of answered questions
+        /// </summary>
+        /// <returns></returns>
         public Question GetCurrentQuestion()
         {
             List<Question> sessionQuestions = GetSessionQuestions();
@@ -166,6 +264,10 @@ namespace AITResearchSystem.Services
             return sessionQuestions[size - 1];
         }
 
+        /// <summary>
+        /// Returns the list of answered questions stored in session.
+        /// </summary>
+        /// <returns></returns>
         public List<Question> GetSessionQuestions()
         {
             var value = _accessor.HttpContext.Session.GetString(SessionKeySessionQuestions);

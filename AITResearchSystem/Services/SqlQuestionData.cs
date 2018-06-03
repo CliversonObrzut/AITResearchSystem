@@ -16,6 +16,11 @@ namespace AITResearchSystem.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Returns from db a Question by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Question GetById(int id)
         {
             return _context.Questions
@@ -24,11 +29,20 @@ namespace AITResearchSystem.Services
                 .FirstOrDefault(question => question.Id == id);
         }
 
+        /// <summary>
+        /// Returns from db all the Questions.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Question> GetAll()
         {
             return _context.Questions.ToList();
         }
 
+        /// <summary>
+        /// Returns from db a Question by order.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public Question GetByOrder(int order)
         {
             return _context.Questions
@@ -37,6 +51,11 @@ namespace AITResearchSystem.Services
                 .FirstOrDefault(question => question.Order == order);
         }
 
+        /// <summary>
+        /// Returns if the next question order is available inside database.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public bool IsNextQuestionAvailable(int order)
         {
             return _context.Questions.Any(q => q.Order == order);
