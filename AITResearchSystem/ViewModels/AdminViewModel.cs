@@ -7,21 +7,14 @@ namespace AITResearchSystem.ViewModels
     public class AdminViewModel
     {
         [Display(Name = "Genders")]
-        public List<SelectListOption> Genders { get; set; }
+        public List<Option> Genders { get; set; }
         [Display(Name = "Age Ranges")]
-        public List<SelectListOption> AgeRanges { get; set; }
+        public List<Option> AgeRanges { get; set; }
         [Display(Name = "States")]
-        public List<SelectListOption> States { get; set; }
+        public List<Option> States { get; set; }
         public string SearchQuery { get; set; }
         public int [] SelectedFilters { get; set; }
         public List<TableRowAnswer> Answers { get; set; }
-    }
-
-    public class SelectListOption
-    {
-        public int Id { get; set; }
-        public string Text { get; set; }
-        public bool IsSelected { get; set; }
     }
 
     public class TableRowAnswer
@@ -36,14 +29,7 @@ namespace AITResearchSystem.ViewModels
         [Display(Name = "Phone Number")] public string PhoneNumber { get; set; }
         [Display(Name = "Email")] public string Email { get; set; }
 
-        public bool Expanded { get; set; }
-
         public TableRowExpanded TableRowExpanded { get; set; }
-
-        public void InvertExpand()
-        {
-            Expanded = !Expanded;
-        }
     }
 
     public class TableRowExpanded

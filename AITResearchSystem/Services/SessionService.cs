@@ -15,12 +15,30 @@ namespace AITResearchSystem.Services
         private const string SessionKeyQuestionnaireDone = "_questionnaireDone";
         private const string SessionKeyAdminEmail = "_adminEmail";
         private const string SessionKeyIsFollowUpQuestion = "_isFollowUpQuestion";
+        private const string SessionKeyFilteredRespondents = "_filteredRespondents";
 
         private readonly IHttpContextAccessor _accessor;
 
         public SessionService(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
+        }
+
+        public void SetFilteredRespondentsId(List<int> respondentsId)
+        {
+            _accessor.HttpContext.Session.SetString(SessionKeyFilteredRespondents, JsonConvert.SerializeObject(respondentsId));
+        }
+
+        public List<int> GetFilteredRespondents()
+        {
+            var value = _accessor.HttpContext.Session.GetString(SessionKeyFilteredRespondents);
+            var done = value != null ? JsonConvert.DeserializeObject<List<int>>(value) : new List<int>();
+            return done;
+        }
+
+        public void ClearFilteredRespondents()
+        {
+            SetFilteredRespondentsId(new List<int>());
         }
 
         public void SetIsFollowUpQuestion(string value)

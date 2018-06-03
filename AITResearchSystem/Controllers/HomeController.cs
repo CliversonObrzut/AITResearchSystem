@@ -432,7 +432,7 @@ namespace AITResearchSystem.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Admin(List<Respondent> respondents)
+        public IActionResult Admin(int filtered)
         {
             var admin = _session.GetAdminEmail();
             if (admin.Equals("session expired"))
@@ -441,63 +441,32 @@ namespace AITResearchSystem.Controllers
             }
 
             ViewData["User"] = admin;
-            if (respondents.Count == 0)
+
+            List<Respondent> respondents = new List<Respondent>();
+            if (filtered == 0)
             {
                 respondents = _respondentData.GetAll().ToList();
             }
-            List<Option> questionOptions = _optionData.GetAll().ToList();
-
+            else
+            {
+                List<int> respondentsId = _session.GetFilteredRespondents();
+                foreach (var respondentId in respondentsId)
+                {
+                    respondents.Add(_respondentData.Get(respondentId));
+                }
+                _session.ClearFilteredRespondents();
+            }
 
             var model = new AdminViewModel
             {
-                Genders = new List<SelectListOption>(),
-                AgeRanges = new List<SelectListOption>(),
-                States = new List<SelectListOption>()
+                Genders = _optionData.GetByQuestion(1).ToList(),
+                AgeRanges = _optionData.GetByQuestion(2).ToList(),
+                States = _optionData.GetByQuestion(3).ToList(),
+                Answers = LoadAnswerTable(respondents)
+                    .OrderBy(a => a.LastName == "Anonymous")
+                    .ThenBy(a => a.LastName)
+                    .ToList()
             };
-
-            for (int i = 0; i < 19; i++)
-            {
-                // options range for Genders
-                if (i >= 0 && i <= 1)
-                {
-                    SelectListOption gender = new SelectListOption
-                    {
-                        Id = questionOptions[i].Id,
-                        Text = questionOptions[i].Text,
-                        IsSelected = false
-                    };
-                    model.Genders.Add(gender);
-                }
-
-                // options range for Age Ranges
-                if (i >= 2 && i <= 9)
-                {
-                    SelectListOption ageRange = new SelectListOption
-                    {
-                        Id = questionOptions[i].Id,
-                        Text = questionOptions[i].Text,
-                        IsSelected = false
-                    };
-                    model.AgeRanges.Add(ageRange);
-                }
-
-                // options range for States/Territories
-                if (i >= 10 && i <= 18)
-                {
-                    SelectListOption state = new SelectListOption
-                    {
-                        Id = questionOptions[i].Id,
-                        Text = questionOptions[i].Text,
-                        IsSelected = false
-                    };
-                    model.States.Add(state);
-                }
-            }
-
-            model.Answers = LoadAnswerTable(respondents, questionOptions)
-                .OrderBy(a => a.LastName == "Anonymous")
-                .ThenBy(a => a.LastName)
-                .ToList();
 
             return View(model);
         }
@@ -509,8 +478,17 @@ namespace AITResearchSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Admin));
-                // TODO implement Search logic
+                List<Answer> matchedAnswers = _answerData.Search(model.SearchQuery).ToList();
+                List<int> matchedRespondentsId = new List<int>();
+                foreach (var answer in matchedAnswers)
+                {
+                    if (matchedRespondentsId.All(r => r != answer.RespondentId))
+                    {
+                        matchedRespondentsId.Add(answer.RespondentId);
+                    }
+                }
+                _session.SetFilteredRespondentsId(matchedRespondentsId);
+                return RedirectToAction(nameof(Admin), new { filtered = 1});
             }
 
             return RedirectToAction(nameof(Admin));
@@ -537,9 +515,10 @@ namespace AITResearchSystem.Controllers
             return RedirectToAction(nameof(Admin));
         }
 
-        private static List<TableRowAnswer> LoadAnswerTable(List<Respondent> respondents, List<Option> questionOptions)
+        private List<TableRowAnswer> LoadAnswerTable(List<Respondent> respondents)
         {
             List<TableRowAnswer> tableRowAnswers = new List<TableRowAnswer>();
+            List<Option> questionOptions = _optionData.GetAll().ToList();
             foreach (var respondent in respondents)
             {
                 var tableRowAnswer = new TableRowAnswer
@@ -549,8 +528,7 @@ namespace AITResearchSystem.Controllers
                     PhoneNumber = respondent.PhoneNumber,
                     Suburb = respondent.RespondentAnswers.Find(t => t.QuestionId == 4).Text,
                     Postcode = respondent.RespondentAnswers.Find(t => t.QuestionId == 5).Text,
-                    Email = respondent.RespondentAnswers.Find(a => a.QuestionId == 6).Text,
-                    Expanded = false
+                    Email = respondent.RespondentAnswers.Find(a => a.QuestionId == 6).Text
                 };
                 var raGenderOptionId = respondent.RespondentAnswers.Find(a => a.QuestionId == 1).OptionId;
                 tableRowAnswer.Gender = questionOptions.Find(o => o.Id == raGenderOptionId).Text;

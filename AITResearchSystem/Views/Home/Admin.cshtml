@@ -19,7 +19,7 @@
             <div class="form-group col-md-3">
                 <label asp-for="@Model.Genders"></label>
                 <select asp-for="@Model.SelectedFilters" class="form-control">
-                    <option value="" selected="selected">-- None --</option>
+                    <option value="0" selected="selected">-- None --</option>
                     @foreach (var option in Model.Genders)
                     {
                         <option value="@option.Id">@option.Text</option>
@@ -29,7 +29,7 @@
             <div class="form-group col-md-3">
                 <label asp-for="@Model.AgeRanges"></label>
                 <select asp-for="@Model.SelectedFilters" class="form-control">
-                    <option value="" selected="selected">-- None --</option>
+                    <option value="0" selected="selected">-- None --</option>
                     @foreach (var option in Model.AgeRanges)
                     {
                         <option value="@option.Id">@option.Text</option>
@@ -39,7 +39,7 @@
             <div class="form-group col-md-3">
                 <label asp-for="@Model.States"></label>
                 <select asp-for="@Model.SelectedFilters" class="form-control">
-                    <option value=""selected="selected">-- None --</option>
+                    <option value="0" selected="selected">-- None --</option>
                     @foreach (var option in Model.States)
                     {
                         <option value="@option.Id">@option.Text</option>

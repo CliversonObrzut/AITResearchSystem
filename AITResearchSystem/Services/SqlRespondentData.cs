@@ -18,7 +18,8 @@ namespace AITResearchSystem.Services
 
         public IEnumerable<Respondent> GetAll()
         {
-            return _context.Respondents.Include(a => a.RespondentAnswers).ToList();
+            return _context.Respondents
+                .Include(a => a.RespondentAnswers).ToList();
         }
 
         public Respondent Get(int id)
