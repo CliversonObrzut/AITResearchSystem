@@ -579,10 +579,44 @@ namespace AITResearchSystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Filter(AdminViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.SelectedFilters.Any(option => option != 0))
             {
-                return RedirectToAction(nameof(Admin));
-                // TODO implement Filter logic
+                List<Answer> matchedAnswers = new List<Answer>();
+                foreach (var option in model.SelectedFilters)
+                {
+                    if (option != 0)
+                    {
+                        var tempAnswers = new List<Answer>();
+                        var filteredAnswers = _answerData.FilterByOptionId(option).ToList();
+                        if (matchedAnswers.Count == 0)
+                        {
+                            matchedAnswers = filteredAnswers;
+                        }
+                        else
+                        {
+                            foreach (var filteredAnswer in filteredAnswers)
+                            {
+                                if (matchedAnswers.Any(a => a.RespondentId == filteredAnswer.RespondentId))
+                                {
+                                    tempAnswers.Add(filteredAnswer);
+                                }
+                            }
+
+                            matchedAnswers = tempAnswers;
+                        }
+                    }
+                }
+
+                List<int> matchedRespondentsId = new List<int>();
+                foreach (var answer in matchedAnswers)
+                {
+                    if (matchedRespondentsId.All(r => r != answer.RespondentId))
+                    {
+                        matchedRespondentsId.Add(answer.RespondentId);
+                    }
+                }
+                _session.SetFilteredRespondentsId(matchedRespondentsId);
+                return RedirectToAction(nameof(Admin), new { filtered = 1 });
             }
             return RedirectToAction(nameof(Admin));
         }

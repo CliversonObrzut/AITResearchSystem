@@ -6,19 +6,16 @@ using AITResearchSystem.Data;
 using AITResearchSystem.Data.Models;
 using AITResearchSystem.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace AITResearchSystem.Services
 {
     public class SqlAnswerData : IAnswer
     {
         private readonly AitResearchDbContext _context;
-        private readonly ILogger _logger;
 
-        public SqlAnswerData(AitResearchDbContext context, ILogger logger)
+        public SqlAnswerData(AitResearchDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         /// <summary>
@@ -31,11 +28,10 @@ namespace AITResearchSystem.Services
             {
                 _context.Answers.Add(answer);
                 _context.SaveChanges();
-                _logger.LogInformation("Answer id = {0} added to database", answer.Id);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                _logger.LogError("Error adding Answer id = {0} to database", answer.Id);
+                Console.WriteLine(e);
             }
         }
 
@@ -49,11 +45,10 @@ namespace AITResearchSystem.Services
             {
                 _context.Answers.AddRange(answers);
                 _context.SaveChanges();
-                _logger.LogInformation("List of Answers added to database");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                _logger.LogInformation("Error trying to add list of Answers to database");
+                Console.WriteLine(e);
             }
         }
 

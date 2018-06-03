@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Extensions.Logging;
 
 namespace AITResearchSystem
 {
