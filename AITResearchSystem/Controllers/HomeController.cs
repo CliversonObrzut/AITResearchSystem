@@ -584,6 +584,9 @@ namespace AITResearchSystem.Controllers
                 List<Answer> filterOne = new List<Answer>();
                 List<Answer> filterTwo = new List<Answer>();
                 List<Answer> filterThree = new List<Answer>();
+                int countOne = 0;
+                int countTwo = 0;
+                int countThree = 0;
                 bool matchCondition = true;
                 foreach (var option in model.SelectedFilters)
                 {
@@ -595,21 +598,28 @@ namespace AITResearchSystem.Controllers
                             if (filteredAnswers[0].QuestionId == 1)
                             {
                                 filterOne.AddRange(filteredAnswers);
+                                countOne++;
                             }
                             else if (filteredAnswers[0].QuestionId == 2)
                             {
                                 filterTwo.AddRange(filteredAnswers);
+                                countTwo++;
                             }
                             else
                             {
                                 filterThree.AddRange(filteredAnswers);
+                                countThree++;
                             }
                         }
-                        else
-                        {
-                            matchCondition = false;
-                        }
                     }
+                }
+
+                // check if there was no answer for each option of each question id asked.
+                if (countOne > 0 && filterOne.Count == 0
+                    || countTwo > 0 && filterTwo.Count == 0 
+                    || countThree > 0 && filterThree.Count == 0)
+                {
+                    matchCondition = false;
                 }
 
                 List<Answer> matchedAnswers = new List<Answer>();
