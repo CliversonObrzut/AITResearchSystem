@@ -16,77 +16,87 @@
             </tr>
         </thead>
         <tbody>
-            @* For each respondent in the model it creates two table rows *@
-            @* The first one is displayed with respondent personal information *@
-            @foreach (var answer in @Model)
+            @if (@Model.Count == 0)
             {
                 <tr>
-                    <td>@answer.LastName</td>
-                    <td>@answer.GivenNames</td>
-                    <td>@answer.Gender</td>
-                    <td>@answer.AgeRange</td>
-                    <td>@answer.State</td>
-                    <td>@answer.Suburb</td>
-                    <td>@answer.Postcode</td>
-                    <td>@answer.PhoneNumber</td>
-                    <td>@answer.Email</td>
+                    <td colspan="9" style="text-align: center">Nothing found!</td>
                 </tr>
-                @* The second one has answers about banks and newspapers preferences *@
-                @* It is initially hidden and displayed when the previous row is clicked on *@
-                <tr style="display:none">
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <label asp-for="@answer.TableRowExpanded.Banks"></label>
-                        @foreach (var bank in answer.TableRowExpanded.Banks)
-                        {
-                            <br />
-                            @bank.Text
-                        }
-                    </td>
-                    <td>
-                        <label asp-for="@answer.TableRowExpanded.BankServices"></label>
-                        @foreach (var bankService in answer.TableRowExpanded.BankServices)
-                        {
-                            <br />
-                            @bankService.Text
-                        }
-                    </td>
-                    <td>
-                        <label asp-for="@answer.TableRowExpanded.Newspapers"></label>
-                        @foreach (var newspaper in answer.TableRowExpanded.Newspapers)
-                        {
-                            <br />
-                            @newspaper.Text
-                        }
-                    </td>
-                    <td>
-                        <label asp-for="@answer.TableRowExpanded.NewspaperSections"></label>
-                        @foreach (var newspaperSection in answer.TableRowExpanded.NewspaperSections)
-                        {
-                            <br />
-                            @newspaperSection.Text
-                        }
-                    </td>
-                    <td>
-                        <label asp-for="@answer.TableRowExpanded.SportsSection"></label>
-                        @foreach (var sport in answer.TableRowExpanded.SportsSection)
-                        {
-                            <br />
-                            @sport.Text
-                        }
-                    </td>
-                    <td>
-                        <label asp-for="@answer.TableRowExpanded.TravelsSection"></label>
-                        @foreach (var place in answer.TableRowExpanded.TravelsSection)
-                        {
-                            <br />
-                            @place.Text
-                        }
-                    </td>
-                    <td></td>
-                </tr>
+            }
+            else
+            {
+                @* For each respondent in the model it creates two table rows *@
+                @* The first one is displayed with respondent personal information *@
+                foreach (var answer in @Model)
+                {
+                    <tr>
+                        <td>@answer.LastName</td>
+                        <td>@answer.GivenNames</td>
+                        <td>@answer.Gender</td>
+                        <td>@answer.AgeRange</td>
+                        <td>@answer.State</td>
+                        <td>@answer.Suburb</td>
+                        <td>@answer.Postcode</td>
+                        <td>@answer.PhoneNumber</td>
+                        <td>@answer.Email</td>
+                    </tr>
+                    @* The second one has answers about banks and newspapers preferences *@
+                    @* It is initially hidden and displayed when the previous row is clicked on *@
+                    <tr style="display:none">
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <label asp-for="@answer.TableRowExpanded.Banks"></label>
+                            @foreach (var bank in answer.TableRowExpanded.Banks)
+                            {
+                                <br />
+                                @bank.Text
+                            }
+                        </td>
+                        <td>
+                            <label asp-for="@answer.TableRowExpanded.BankServices"></label>
+                            @foreach (var bankService in answer.TableRowExpanded.BankServices)
+                            {
+                                <br />
+                                @bankService.Text
+                            }
+                        </td>
+                        <td>
+                            <label asp-for="@answer.TableRowExpanded.Newspapers"></label>
+                            @foreach (var newspaper in answer.TableRowExpanded.Newspapers)
+                            {
+                                <br />
+                                @newspaper.Text
+                            }
+                        </td>
+                        <td>
+                            <label asp-for="@answer.TableRowExpanded.NewspaperSections"></label>
+                            @foreach (var newspaperSection in answer.TableRowExpanded.NewspaperSections)
+                            {
+                                <br />
+                                @newspaperSection.Text
+                            }
+                        </td>
+                        <td>
+                            <label asp-for="@answer.TableRowExpanded.SportsSection"></label>
+                            @foreach (var sport in answer.TableRowExpanded.SportsSection)
+                            {
+                                <br />
+                                @sport.Text
+                            }
+                        </td>
+                        <td>
+                            <label asp-for="@answer.TableRowExpanded.TravelsSection"></label>
+                            @foreach (var place in answer.TableRowExpanded.TravelsSection)
+                            {
+                                <br />
+                                @place.Text
+                            }
+                        </td>
+                        <td></td>
+                    </tr>
                 }
-            </tbody>
+            }
+
+        </tbody>
     </table>
 </div>

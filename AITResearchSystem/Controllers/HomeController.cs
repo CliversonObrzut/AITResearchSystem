@@ -614,7 +614,7 @@ namespace AITResearchSystem.Controllers
                     }
                 }
 
-                // check if there was no answer for each option of each question id asked.
+                // check if there was no answer for all the options filtered from each question
                 if (countOne > 0 && filterOne.Count == 0
                     || countTwo > 0 && filterTwo.Count == 0 
                     || countThree > 0 && filterThree.Count == 0)
@@ -626,22 +626,25 @@ namespace AITResearchSystem.Controllers
                 if (matchCondition)
                 {
                     matchedAnswers = filterOne;
-                    if (matchedAnswers.Count != 0)
+                    if (matchedAnswers.Count != 0) // if this is 0 means the admin did not selected any option in filter with question id = 1
                     {
-                        if (filterTwo.Count != 0)
+                        if (filterTwo.Count != 0) //  if the admin selected at least one option to filter from question 2
                         {
                             List<Answer> tempAnswers = new List<Answer>();
                             foreach (var filteredAnswer in filterTwo)
                             {
+                                // it checks if the answer in filter two matches the same user in filter one
                                 if (matchedAnswers.Any(a => a.RespondentId == filteredAnswer.RespondentId))
                                 {
+                                    // add the answer to the temp list
                                     tempAnswers.Add(filteredAnswer);
                                 }
                             }
+                            // assign the new filtered list to matchedAnswers
                             matchedAnswers = tempAnswers;
                         }
                     }
-                    else
+                    else //  if the admin did not select any option from question id = 1
                     {
                         matchedAnswers = filterTwo;
                     }
