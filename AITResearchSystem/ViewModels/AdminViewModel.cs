@@ -17,6 +17,7 @@ namespace AITResearchSystem.ViewModels
         public List<TableRowAnswer> Answers { get; set; }
     }
 
+    // Table Row view model, for the first row with respondent info
     public class TableRowAnswer
     {
         [Display(Name = "Last Name")] public string LastName { get; set; }
@@ -32,6 +33,7 @@ namespace AITResearchSystem.ViewModels
         public TableRowExpanded TableRowExpanded { get; set; }
     }
 
+    // Table row view model, for the second row with extra info answered by respondent during questionnaire
     public class TableRowExpanded
     {
         [Display(Name = "Banks")] public List<Option> Banks { get; set; }
