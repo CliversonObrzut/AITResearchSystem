@@ -1041,7 +1041,7 @@ namespace AITResearchSystem.HookIn
                 .BuildServiceProvider();
 
             var builder = new DbContextOptionsBuilder<AitResearchDbContext>();
-            builder.UseSqlServer("Server = SQL5031.site4now.net; MultipleActiveResultSets = true; Initial Catalog = DB_9AB8B7_B18DDA6204; User Id = DB_9AB8B7_B18DDA6204_admin; Password = 2B8bSpSe")
+            builder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = AITResearch; Trusted_Connection = True; MultipleActiveResultSets = true")
                 .UseInternalServiceProvider(serviceProvider);
 
             return builder.Options;

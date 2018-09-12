@@ -805,7 +805,7 @@ namespace AITResearchSystem.Controllers
                 }
                 // adds to the session the list of respondent ids filtered
                 _session.SetFilteredRespondentsId(matchedRespondentsId);
-                // redirectos to Admin page with the filtered parameter
+                // redirectos to Admin page with the filtered parameter flag
                 return RedirectToAction(nameof(Admin), new { filtered = 1 });
             }
             // if the model state is invalid or nothing was selected to filter

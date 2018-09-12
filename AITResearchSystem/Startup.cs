@@ -33,7 +33,7 @@ namespace AITResearchSystem
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AitResearchDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AITRConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("AITRLocalConnection")));
 
             // service that add identity from authentication. Created when
             // project started with "User Authentication" option.
